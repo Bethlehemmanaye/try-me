@@ -59,7 +59,7 @@ class Header extends React.Component {
 
   render() {
     const isMobile = this.state.isMobile;
-    let drawerClasses = "";
+    let drawerClasses = "cr-header";
     if (this.props.scrolled) {
       drawerClasses = "bg-gradient-theme-right scrolledAppBar";
     }
@@ -143,18 +143,16 @@ class Header extends React.Component {
               </NavItem>
               <NavItem>
                 <NavLink>
-                  <RenderButton
-                    title="SignUp"
-                    onClick={() => this.props.toggle("signUp")}
-                  />
+                  <Link to={{ pathname: routes.signUp }}>
+                    <RenderButton title="Sign Up" />
+                  </Link>
                 </NavLink>
               </NavItem>
               <NavItem>
                 <NavLink>
-                  <RenderButton
-                    onClick={() => this.props.toggle("signIn")}
-                    title="SignIn"
-                  />
+                  <Link to={{ pathname: routes.signIn }}>
+                    <RenderButton title="Sign In" />
+                  </Link>
                 </NavLink>
               </NavItem>
             </Nav>

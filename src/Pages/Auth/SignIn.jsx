@@ -12,11 +12,15 @@ import {
   Col,
 } from "reactstrap";
 import routes from "../../Config/routes";
+import { MdHome } from "react-icons/md";
 
 const SignIn = () => {
   return (
     <div className="authContainer">
       <Card className="authCard">
+        <Link to={{ pathname: routes.homePage }}>
+          <MdHome size={20} /> <small>Back to Home</small>
+        </Link>
         <CardHeader align="center">
           <h1>Sign In</h1>
         </CardHeader>

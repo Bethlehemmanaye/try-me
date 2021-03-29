@@ -6,7 +6,7 @@ export const RenderInput = ({ type, placeholder, ...props }) => (
 );
 
 export const RenderButton = ({ color, title, ...props }) => (
-  <Button {...props} size="sm" outline color={color}>
+  <Button {...props} size="sm" outline color="light">
     {title}
   </Button>
 );

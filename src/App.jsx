@@ -8,7 +8,7 @@ import routes from "./Config/routes";
 import SignIn from "./Pages/Auth/SignIn";
 import SignUp from "./Pages/Auth/SignUp";
 
-const DemoPage = React.lazy(() => import("./Pages/DemoPage"));
+const DemoPage = React.lazy(() => import("./Pages/HomePage"));
 
 const getBasename = () => {
   return `/${process.env.PUBLIC_URL.split("/").pop()}`;
