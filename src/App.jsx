@@ -1,10 +1,12 @@
 import React from "react";
-import "./Styles/projectTitle.scss";
 import "react-animated-slider/build/horizontal.css";
-import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
-import routes from "./Config/routes";
+import "./Styles/projectTitle.scss";
+import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
 import { Spinner } from "reactstrap";
-import { MainLayout } from "./Components/Layout";
+import { EmptyLayout, LayoutRoute, MainLayout } from "./Components/Layout";
+import routes from "./Config/routes";
+import SignIn from "./Pages/Auth/SignIn";
+import SignUp from "./Pages/Auth/SignUp";
 
 const DemoPage = React.lazy(() => import("./Pages/DemoPage"));
 
@@ -16,12 +18,18 @@ function App() {
   return (
     <BrowserRouter basename={getBasename()}>
       <Switch>
-        {/* <LayoutRoute
-              exactgit
-              path={routes.signIn}
-              layout={EmptyLayout}
-              component={SignInPage}
-            /> */}
+        <LayoutRoute
+          exact
+          path={routes.signUp}
+          layout={EmptyLayout}
+          component={SignUp}
+        />
+        <LayoutRoute
+          exact
+          path={routes.signIn}
+          layout={EmptyLayout}
+          component={SignIn}
+        />
         <React.Fragment>
           <MainLayout>
             <React.Suspense
@@ -35,7 +43,7 @@ function App() {
             </React.Suspense>
           </MainLayout>
         </React.Fragment>
-        <Redirect to="/" />
+        <Redirect to={routes.signUp} />
       </Switch>
     </BrowserRouter>
   );

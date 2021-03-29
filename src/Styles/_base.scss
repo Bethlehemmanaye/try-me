@@ -26,7 +26,7 @@ button,
 .navbar,
 .brand,
 .alert {
-  -moz-osx-font-smoothing: grayscale;
+  //   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
   font-family: Itim, Poppins, Roboto, Raleway, "Helvetica Neue", Arial,
     sans-serif;
@@ -47,8 +47,8 @@ button,
     transition: 0.5s;
     font-size: 11px;
   }
-  button:hover {
-    transform: scale(1.09);
+  input {
+    font-size: 11px;
   }
 }
 

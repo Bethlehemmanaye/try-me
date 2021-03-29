@@ -132,7 +132,7 @@ class Header extends React.Component {
                     </ListGroup>
                   </PopoverBody>
                 </Popover>
-                <NavLink onMouseEnter={this.toggleAboutPopover}>
+                <NavLink onClick={this.toggleAboutPopover}>
                   <RenderButton
                     title="About"
                     outline
