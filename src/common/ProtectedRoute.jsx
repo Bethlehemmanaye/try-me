@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { Route, Redirect } from "react-router-dom";
-import { AuthUserContext } from "Pages/Session";
+import { AuthUserContext } from "pages/Session";
 
 const ProtectedRoute = ({ path, component: Component, ...rest }) => {
   const authUser = useContext(AuthUserContext);
@@ -8,7 +8,7 @@ const ProtectedRoute = ({ path, component: Component, ...rest }) => {
     <Route
       exact
       path={path}
-      render={props => {
+      render={(props) => {
         if (!authUser || !authUser.isAuthor)
           return (
             <Redirect

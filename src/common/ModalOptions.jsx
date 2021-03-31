@@ -1,4 +1,4 @@
-import PostForm from "Pages/common/PostForm";
+import PostForm from "common/PostForm";
 import React from "react";
 import { ConfirmAlert } from "./ConfirmAlert";
 

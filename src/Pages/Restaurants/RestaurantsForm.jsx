@@ -1,8 +1,7 @@
 import Joi from "joi-browser";
 import React from "react";
-import Translate from "react-translate-component";
 import { Card, CardBody, CardFooter, Col, Form } from "reactstrap";
-import ParentForm from "../../../common/form";
+import ParentForm from "../../common/form";
 
 class UserAdd extends ParentForm {
   constructor(props) {
@@ -55,11 +54,11 @@ class UserAdd extends ParentForm {
             <Col md={12} sm={12} xs={12}>
               {this.renderInput({
                 name: "name",
-                label: <Translate content="categories" />,
+                label: '<Translate content="categories" />',
               })}
             </Col>
             <CardFooter className="bg-background" align="center">
-              {this.renderButton(<Translate content="save" />)}
+              {this.renderButton("Save")}
             </CardFooter>
           </Form>
         </CardBody>

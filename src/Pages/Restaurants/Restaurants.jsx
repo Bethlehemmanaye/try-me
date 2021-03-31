@@ -1,9 +1,8 @@
-import CommonModals from "Components/CommonModal";
-import { initialState, reducer, _toggle } from "Pages/common/ModalOptions";
-import CustomTable from "Pages/common/table";
+import CommonModals from "common/CommonModal";
+import { initialState, reducer, _toggle } from "common/ModalOptions";
+import CustomTable from "common/table";
 import React, { useEffect, useReducer } from "react";
 import { MdDelete, MdEdit, MdRemoveRedEye } from "react-icons/md";
-import Translate from "react-translate-component";
 import { Button, Card, Col, Row } from "reactstrap";
 import CategoryAdd from "./RestaurantsForm";
 
@@ -18,11 +17,11 @@ const CategoryManagement = ({
 }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const columns = [
-    { path: "name", label: <Translate content="categories" /> },
-    { path: "created_at", label: <Translate content="dateCreated" /> },
+    { path: "name", label: "Name" },
+    { path: "created_at", label: "Name" },
     {
       key: "view",
-      label: <Translate content="actions" />,
+      label: "Name",
       content: (categorys) => (
         <Row>
           <Button
@@ -46,9 +45,7 @@ const CategoryManagement = ({
               <MdRemoveRedEye />
             </icon>
             <small>
-              <b>
-                <Translate content="view" />
-              </b>
+              <b>'Name'</b>
             </small>
           </Button>
           <Button
@@ -72,9 +69,7 @@ const CategoryManagement = ({
               <MdEdit />
             </icon>
             <small>
-              <b>
-                <Translate content="edit" />
-              </b>
+              <b>'Name'</b>
             </small>
           </Button>
           <Button
@@ -100,9 +95,7 @@ const CategoryManagement = ({
               <MdDelete />
             </icon>
             <small>
-              <b>
-                <Translate content="delete" />
-              </b>
+              <b>'Name'</b>
             </small>
           </Button>
         </Row>
@@ -145,7 +138,7 @@ const CategoryManagement = ({
           }
           size="sm"
         >
-          <Translate content="addCategory" />
+          'Name'
         </Button>
       </Col>
       <CustomTable title="Categories" columns={columns} data={categorys} />

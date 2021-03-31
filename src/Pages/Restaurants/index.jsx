@@ -8,7 +8,7 @@ import {
   Fetch,
   Remove,
   selectAddStatus,
-  selectCategories,
+  selectRestaurants,
   selectDeleteStatus,
   selectEditStatus,
   selectFetchStatus,
@@ -18,13 +18,13 @@ import CategoryManagment from "./Restaurants";
 const Loader = ({
   fetchStatus,
   addStatus,
-  fetchCategories,
+  fetchRestaurants,
   addCategory,
   editStatus,
   editCategory,
   deleteStatus,
   deleteCategory,
-  categorys,
+  restaurants,
 }) => {
   const [data, setData] = useState([]);
   const [fetchLock, setFetchLock] = useState(true);
@@ -35,25 +35,25 @@ const Loader = ({
   //   const [categoryCategory, setCategoryCategory] = useState("");
 
   useEffect(() => {
-    setData(categorys);
-  }, [categorys, setData]);
+    setData(restaurants);
+  }, [restaurants, setData]);
 
   //   // For Category of an author
   //   useEffect(() => {
   //     const categoryId = "60465553775605561ddef264";
-  //     const category = categorys.filter(e => e.category._id === categoryId);
+  //     const category = restaurants.filter(e => e.category._id === categoryId);
   //     setCategoryCategory(category);
-  //   }, [categorys]);
+  //   }, [restaurants]);
 
   useEffect(() => {
     setFetchLock(false);
-    fetchCategories();
-  }, [fetchCategories, setFetchLock]);
+    fetchRestaurants();
+  }, [fetchRestaurants, setFetchLock]);
 
   useEffect(() => {
     const { status } = fetchStatus;
     if (status === reduxStatus.failure && !fetchLock) {
-      toast.error("Failed fetching Categories");
+      toast.error("Failed fetching Restaurants");
       setFetchLock(true);
     }
   }, [fetchStatus, setFetchLock, fetchLock]);
@@ -110,7 +110,7 @@ const Loader = ({
       editCategory={_editCategory}
       doneDelete={deleteStatus.status === reduxStatus.success && !deleteLock}
       deleteCategory={_deleteCategory}
-      categorys={data}
+      restaurants={data}
       //   categoryCategory={categoryCategory}
     />
   );
@@ -122,11 +122,11 @@ const mapStateToProps = (state, ownProps) => ({
   addStatus: selectAddStatus(state),
   editStatus: selectEditStatus(state),
   deleteStatus: selectDeleteStatus(state),
-  categorys: selectCategories(state),
+  restaurants: selectRestaurants(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  fetchCategories: () => dispatch(Fetch()),
+  fetchRestaurants: () => dispatch(Fetch()),
   addCategory: (data) => dispatch(Add(data)),
   editCategory: (data) => dispatch(Edit(data)),
   deleteCategory: (id) => dispatch(Remove(id)),

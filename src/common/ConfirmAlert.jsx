@@ -1,9 +1,7 @@
 import { confirmAlert } from "react-confirm-alert";
-import Translate from "react-translate-component";
-import React from "react";
 
 const defaultTitle = "Confirm to submit";
-const defaultMessage = <Translate content="areYouSure" />;
+const defaultMessage = "Are you Sure?";
 const defaultOkCallback = (id) => null;
 const defaultErrCallback = (id) => null;
 
@@ -23,8 +21,8 @@ export const ConfirmAlert = ({
   confirmAlert({
     ...props,
     buttons: [
-      { label: <Translate content="yes" />, onClick: props.okCallback },
-      { label: <Translate content="no" />, onClick: props.errCallback },
+      { label: "Yes", onClick: props.okCallback },
+      { label: "No", onClick: props.errCallback },
     ],
   });
 };

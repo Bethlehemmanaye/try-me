@@ -5,9 +5,9 @@ import Input from "./input";
 import CheckBox from "./checkbox";
 import Select from "./select";
 import Toast from "./toast";
-import LoadingSpinner from "Components/PageSpinner";
+import LoadingSpinner from "components/PageSpinner";
 import _ from "lodash";
-import Fileuploader from "Pages/common/Fileuploader";
+import Fileuploader from "common/Fileuploader";
 
 class Form extends Toast {
   state = {
