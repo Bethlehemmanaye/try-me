@@ -1,4 +1,11 @@
 .homePageContainer {
   margin: 1%;
   height: 100vh;
+  .card {
+    margin: 10px;
+    padding: 20px;
+    display: flex;
+    flex-direction: row;
+    box-shadow: 2px 5px 7px rgba(84, 84, 84, 0.5);
+  }
 }
