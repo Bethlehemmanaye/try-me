@@ -5,7 +5,7 @@ const thumbsContainer = {
   display: "flex",
   flexDirection: "row",
   flexWrap: "wrap",
-  marginTop: 16,
+  marginTop: 16
 };
 
 const thumb = {
@@ -17,39 +17,51 @@ const thumb = {
   width: 100,
   height: 100,
   padding: 4,
-  boxSizing: "border-box",
+  boxSizing: "border-box"
 };
 
 const thumbInner = {
   display: "flex",
   minWidth: 0,
-  overflow: "hidden",
+  overflow: "hidden"
 };
 
 const img = {
   display: "block",
   width: "auto",
-  height: "100%",
+  height: "100%"
 };
 
-function Fileuploader({ name, label, value, onDrop }) {
+function Fileuploader({
+  name,
+  label,
+  value,
+  onDrop,
+  preview,
+  callback,
+  disabled,
+  ...rest
+}) {
   const [files, setFiles] = useState([]);
   const { getRootProps, getInputProps } = useDropzone({
+    ...rest,
+    disabled,
     accept: "image/*",
-    onDrop: (acceptedFiles) => {
+    onDrop: acceptedFiles => {
       setFiles(
-        acceptedFiles.map((file) =>
+        acceptedFiles.map(file =>
           Object.assign(file, {
-            preview: URL.createObjectURL(file),
+            preview: URL.createObjectURL(file)
           })
         )
       );
       onDrop(name, acceptedFiles);
-    },
+      callback(acceptedFiles);
+    }
   });
   let thumbs;
   if (files.length > 0) {
-    thumbs = files.map((file) => (
+    thumbs = files.map(file => (
       <div style={thumb} key={file.name}>
         <div style={thumbInner}>
           <img src={file.preview} style={img} alt="" />
@@ -68,7 +80,7 @@ function Fileuploader({ name, label, value, onDrop }) {
 
   useEffect(
     () => () => {
-      files.forEach((file) => URL.revokeObjectURL(file.preview));
+      files.forEach(file => URL.revokeObjectURL(file.preview));
     },
     [files]
   );
@@ -77,13 +89,15 @@ function Fileuploader({ name, label, value, onDrop }) {
     <section className="container">
       <div {...getRootProps({ className: "dropzone" })}>
         <input {...getInputProps()} alt="" />
-        <p>
-          Drag and drop {label}
-          <hr />
-          or click to select files
-        </p>
+        {!disabled && (
+          <p>
+            Drag and drop {label}
+            <hr />
+            or click to select
+          </p>
+        )}
       </div>
-      <aside style={thumbsContainer}>{thumbs}</aside>
+      {preview && !disabled && <aside style={thumbsContainer}>{thumbs}</aside>}
     </section>
   );
 }

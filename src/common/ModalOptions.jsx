@@ -1,4 +1,4 @@
-import PostForm from "pages/common/PostForm";
+import PostForm from "Pages/common/PostForm";
 import React from "react";
 import { ConfirmAlert } from "./ConfirmAlert";
 
@@ -80,6 +80,7 @@ export const _toggle = (prop, dispatch) => {
           options: options,
           isEdit: true,
           submit: submit,
+          submitButtonLabel: submitButtonLabel,
           title: title ? title : "",
         },
       });

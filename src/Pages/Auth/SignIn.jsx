@@ -11,7 +11,7 @@ import {
   Label,
   Col,
 } from "reactstrap";
-import routes from "../../Config/routes";
+import routes from "../../config/routes";
 import { MdHome } from "react-icons/md";
 
 const SignIn = () => {

@@ -1,11 +1,7 @@
+import { MainContext } from "context/Main/";
+import { getState, setPageOptions } from "context/Main/States/Pagination";
 import React, { useContext, useEffect, useState } from "react";
-import { Pagination, PaginationItem, PaginationLink, Col } from "reactstrap";
-import { MainContext } from "../../context/Main/";
-import {
-  getState,
-  setPageOptions,
-  getPageLimit,
-} from "../../context/Main/States/Pagination";
+import { Col, Pagination, PaginationItem, PaginationLink } from "reactstrap";
 
 const TableFooter = () => {
   const { rootState, dispatch } = useContext(MainContext);
@@ -20,15 +16,6 @@ const TableFooter = () => {
   const [openTab, setOpenTab] = useState("");
 
   useEffect(() => {
-    const limit = getPageLimit(rootState);
-    if (typeof limit !== "undefined") {
-      if (pageLimit !== limit) {
-        // handleChange(offset, limit)
-      }
-    }
-  }, [rootState]);
-
-  useEffect(() => {
     const { count, results } = buffer;
     if (!(results.length === 0 && count === 0)) {
       setNumberOfPages(Math.ceil(count / results.length));
@@ -36,7 +23,7 @@ const TableFooter = () => {
       setMaxLimit(count);
       setLock(true);
     }
-  }, [openTab, setNumberOfPages, setPageLimit, setMaxLimit, setLock]);
+  }, [openTab, setNumberOfPages, setPageLimit, setMaxLimit, setLock, buffer]);
 
   useEffect(() => {
     if (count) {
@@ -48,7 +35,7 @@ const TableFooter = () => {
         setLock(true);
       }
     }
-  }, [count, buffer]);
+  }, [count, buffer, pageLimit]);
 
   useEffect(() => {
     try {
@@ -70,7 +57,7 @@ const TableFooter = () => {
         setLock(true);
       }
     } catch (e) {}
-  }, [rootState, setCount, setBuffer]);
+  }, [rootState, setCount, setBuffer, count, lock]);
 
   const handleChange = (offset, limit = null) => {
     if (!clicked) {
@@ -92,10 +79,10 @@ const TableFooter = () => {
         });
       }
     }
-  }, [offset, pageLimit]);
+  }, [offset, pageLimit, clicked, dispatch, maxLimit]);
 
   return (
-    <Col sm={12} xs={12} md={12} align="center">
+    <Col className="bg-background" sm={12} xs={12} md={12} align="center">
       <Pagination size="sm">
         <PaginationItem disabled={offset === 0}>
           <PaginationLink first href="#" onClick={() => handleChange(0)}>

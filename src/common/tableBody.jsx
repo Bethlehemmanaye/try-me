@@ -37,7 +37,7 @@ class TableBody extends Component {
     const condition = _.isEmpty(data) ? shimmer : data;
 
     return (
-      <tbody>
+      <tbody className="text-light">
         {condition.map((item) => (
           <tr key={item.id}>
             {columns.map((column) => (

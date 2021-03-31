@@ -5,11 +5,9 @@ import Input from "./input";
 import CheckBox from "./checkbox";
 import Select from "./select";
 import Toast from "./toast";
-import LoadingSpinner from "../../components/PageSpinner";
+import LoadingSpinner from "Components/PageSpinner";
 import _ from "lodash";
-import Fileuploader from "pages/common/Fileuploader";
-import { today } from "helpers/date";
-import dateTypes from "static/data/helpers/dateTypes.json";
+import Fileuploader from "Pages/common/Fileuploader";
 
 class Form extends Toast {
   state = {
@@ -48,7 +46,7 @@ class Form extends Toast {
     e.preventDefault();
     const errors = this.validate();
     console.log("Validation ERRORS", errors);
-    this.setState({ errors: errors || {} }); //if trusy errors elsexs empty object
+    this.setState({ errors: errors || {} }); //if trusy errors eles empty object
     if (errors) return;
     this.doSubmit();
   };
@@ -57,7 +55,7 @@ class Form extends Toast {
   handleChange = ({ currentTarget: input }, callback = null) => {
     //to validate single input when we type
     const errors = { ...this.state.errors };
-    // console.log("mmmmm", input);
+    console.log("mmmmm", input);
     const errorMessage = this.validateProperty(input);
     // if (errorMessage) errors[input.name] = errorMessage;
     if (errorMessage) _.set(errors, input.name, errorMessage);
@@ -84,7 +82,11 @@ class Form extends Toast {
   renderButton(label, loader = false) {
     return (
       !this.props.disabled && (
-        <Button size="sm" className="pr-3 pl-3" disabled={this.props.loading}>
+        <Button
+          size="sm"
+          className="pr-3 pl-3 buttons"
+          // disabled={this.props.loading}
+        >
           {this.props.loading || loader ? <LoadingSpinner /> : label}
         </Button>
       )
@@ -164,36 +166,6 @@ class Form extends Toast {
     );
   }
 
-  // renderCheckbox(name, label, checkCallback = () => null) {
-  //   var props = {};
-  //   if (typeof name === "object") {
-  //     props = {
-  //       ...name,
-  //     };
-  //   } else {
-  //     props.name = name;
-  //     props.label = label;
-  //   }
-
-  //   const { data, errors } = this.state;
-  //   return (
-  //     <CheckBox
-  //       {...props}
-  //       label={props.label}
-  //       name={props.name}
-  //       value={_.get(data, props.name)}
-  //       checked={_.get(data, props.name)}
-  //       onChange={({ currentTarget: { name, checked } }) => {
-  //         this.handleChange({ currentTarget: { name, value: checked } });
-  //         checkCallback(checked);
-  //       }}
-  //       error={_.get(errors, props.name)}
-  //       invalid={_.get(errors, props.name) ? true : false}
-  //       disabled={this.props.disabled || props.disabled}
-  //     />
-  //   );
-  // }
-
   renderInput(name, label, type = "text", className = "") {
     var props = {};
     if (typeof name === "object") {
@@ -227,29 +199,51 @@ class Form extends Toast {
             : this.handleChange
         }
         error={_.get(errors, props.name)}
-        placeholder={props.label}
+        // placeholder={props.label}
         invalid={_.get(errors, props.name) ? true : false}
         disabled={this.props.disabled || props.disabled}
       />
     );
   }
 
-  handleFileDrop = (name, files) => {
+  handleFileDrop = (name, files, previewState = null) => {
     const data = { ...this.state.data };
-    _.set(data, name, files[0]);
+
+    //easy fix
+    if (name === "images") {
+      data[name] = files;
+    } else {
+      _.set(data, name, files[0]);
+    }
+
     this.setState({ data });
+
     console.log(files, "files");
     console.log(name, "name");
   };
 
-  renderFileUploader(name, label) {
+  renderFileUploader(name, label, preview = true, callback = () => {}) {
+    var props = {};
+    if (typeof name === "object") {
+      props = {
+        ...name,
+      };
+    } else {
+      props.name = name;
+      props.label = label;
+      props.preview = preview;
+      props.callback = callback;
+    }
     const { data } = this.state;
     return (
       <Fileuploader
-        value={_.get(data, name)}
-        label={label}
-        name={name}
+        value={_.get(data, props.name)}
+        label={props.label}
+        name={props.name}
         onDrop={this.handleFileDrop}
+        preview={props.preview}
+        callback={props.callback}
+        disabled={this.props.disabled || props.disabled}
       />
     );
   }
@@ -284,117 +278,6 @@ class Form extends Toast {
       selectedLine: "",
     }));
   };
-
-  handleLineSubmit = (line, type = "lines") => {
-    let count = this.state.lineCounter;
-    let data = { ...JSON.parse(JSON.stringify(this.state.data)) };
-    if (line.id) {
-      let index = data[type].findIndex((l) => l.id === line.id);
-      try {
-        data[type][index] = line;
-      } catch (error) {}
-    } else {
-      line["id"] = count;
-      count++;
-      data[type].push(line);
-    }
-    this.setState({ data, lineCounter: count });
-  };
-
-  handleLineEdit = (line) => {
-    this.setState({
-      selectedLine: line,
-    });
-  };
-
-  handleLineDelete = (line, type = "lines") => {
-    const data = { ...this.state.data };
-    let index = data[type].findIndex((l) => l.id === line.id);
-    data[type].splice(index, 1);
-    this.setState({ data });
-  };
-
-  /**
-   * This function does the actual extraction logic
-   *
-   * @param {Object} line single line object
-   * @param {*} data key:value, key property to be extracted, value the list of objects from which the key gets its object/data.
-   *
-   *
-   * temp[key] = data[key].find((obj) => obj.id === line[key]);
-   * the above line for property "warehouse" is the same us temp.warehouse = this.props.warehouses.find((warehouse) => warehouse.id === line.warehouse
-   */
-  getExtractedLine(line, data) {
-    var temp = {};
-    for (var key in data) {
-      // eslint-disable-next-line no-loop-func
-      temp[key] = data[key].find((obj) => obj.id === line[key]);
-    }
-    return temp;
-  }
-
-  /**
-   * this function EXTRACT lines prpertires with only id to their data
-   * for example { item:"1", warehouse:"1"} to {item:{id:"1":name:"item"}}
-
-   * @param {Array} lines list of line objects with properties that only have "id"
-   * example [{lot_number: "",
-      quantity_received: "",
-      total_amount: "",
-      unit_price: "",
-      remark: "",
-      item: "1",
-      unit_measurement: "1",
-      warehouse: "1",
-      bin: "1"} {...}]
-
-      Here bin, unit_measurement, warehouse and item properties have to get their object in order to display on line table correclty
-   * @param {Object} data  key:value, key property to be extracted, value the list of objects from which the key gets its object/data.
-      example   
-      data = {
-          item: this.props.items,
-          warehouse: this.props.warehouses,
-          bin: this.props.bins,
-          unit_measurement: this.props.unitMeasurements,
-      };
-      
-      lines[0].Object.keys(data)[0] !== "object") 
-      if the first line object of the key to be extracted is not object do the extraction
-      the same as lines[0].warehouse !== "object" for property "warehouse"
-   */
-  getLineTableData(lines, data) {
-    if (
-      lines.length > 0 &&
-      typeof lines[0][Object.keys(data)[0]] !== "object"
-    ) {
-      return lines.map((line) => ({
-        ...line,
-        ...this.getExtractedLine(line, data),
-      }));
-    } else {
-      return lines;
-    }
-  }
 }
 
-class ExtendedForm extends Form {
-  enabledDefaultDates = true;
-  fieldsPopulated = false;
-  populateDefaults() {
-    const data = { ...this.state.data };
-    for (var prop in this.state.data) {
-      // eslint-disable-next-line no-loop-func
-      const foundIndex = dateTypes.findIndex((type) => type === prop);
-      if (foundIndex >= 0) {
-        console.log("prop", prop);
-        _.set(data, prop, today);
-      }
-    }
-    if (!this.fieldsPopulated) {
-      this.setState({ data });
-      this.fieldsPopulated = true;
-    }
-  }
-}
-
-export default ExtendedForm;
+export default Form;

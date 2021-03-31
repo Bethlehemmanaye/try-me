@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Nav, Navbar, NavItem, NavLink, Button } from "reactstrap";
 import { Link } from "react-router-dom";
-import routes from "../../Config/routes";
+import routes from "../../config/routes";
 // import SharreIt from "../../assets/Icons/Logo2.svg";
 // import Logo from "../../assets/Icons/Logo.svg";
 import bn from "../../utils/bemnames";
@@ -22,7 +22,7 @@ class EmptyLayoutHeader extends Component {
         <Nav navbar className={bem.e("nav-right")}>
           <NavItem>
             <NavLink>
-              <Button size='sm' outline color="light" id="AboutPopover">
+              <Button size="sm" outline color="light" id="AboutPopover">
                 {" "}
                 <MdHelp /> Need Help?
               </Button>

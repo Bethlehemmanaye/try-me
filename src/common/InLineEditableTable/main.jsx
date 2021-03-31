@@ -5,10 +5,7 @@ import { updateData } from "./reducer";
 import Joi from "joi-browser";
 import _ from "lodash";
 
-const uuid = () =>
-  Math.random()
-    .toString(36)
-    .substring(7);
+const uuid = () => Math.random().toString(36).substring(7);
 
 export const populateLine = (obj, _id) => {
   let returnObj = {};
@@ -17,7 +14,7 @@ export const populateLine = (obj, _id) => {
   }
   return {
     ...returnObj,
-    _id
+    _id,
   };
 };
 
@@ -26,7 +23,7 @@ export const statusTypes = {
   IDLE: "IDLE",
   EDIT: "EDIT",
   SAVED: "SAVED",
-  CANCELED: "CANCELED"
+  CANCELED: "CANCELED",
 };
 
 export const DisplayTable = ({
@@ -38,7 +35,7 @@ export const DisplayTable = ({
   addCount,
   schema,
   dispatch,
-  callback
+  callback,
 }) => {
   const [fetchedData, setFetchedData] = useState([]);
   const [formStatus, setFormStatus] = useState(statusTypes.IDLE);
@@ -57,18 +54,18 @@ export const DisplayTable = ({
 
   useEffect(() => {
     if (data.length > 0 && fetchedData.length === 0) {
-      const filteredData = data.map(item => {
+      const filteredData = data.map((item) => {
         var returnObj = {};
         for (var prop in item) {
           // eslint-disable-next-line no-loop-func
-          const found = columns.find(_item => _item.tag === prop);
+          const found = columns.find((_item) => _item.tag === prop);
           if (found) {
             returnObj[found.tag] = _.get(item, found.tag);
           }
         }
         return {
           ...returnObj,
-          _id: uuid()
+          _id: uuid(),
         };
       });
       setDisplay(filteredData.map(() => false));
@@ -88,7 +85,7 @@ export const DisplayTable = ({
 
   useEffect(() => {
     const options = {};
-    columns.forEach(item => {
+    columns.forEach((item) => {
       if (item.type === "select") {
         options[item.tag] = item.options;
       }
@@ -105,11 +102,11 @@ export const DisplayTable = ({
     }
   }, [formStatus]);
 
-  const populateData = data => {
+  const populateData = (data) => {
     setValidation(schema);
     setForm({
       ...defaultValues,
-      ...data
+      ...data,
     });
   };
 
@@ -130,7 +127,9 @@ export const DisplayTable = ({
   const handleChange = ({ currentTarget: { name, value, callback } }) => {
     const setOptions = (tag, options) => {
       let updatedOptions = generalOptions;
-      const index = Object.keys(generalOptions).findIndex(data => data === tag);
+      const index = Object.keys(generalOptions).findIndex(
+        (data) => data === tag
+      );
       if (index >= 0) {
         updatedOptions[tag] = options;
         setGeneralOptions(updatedOptions);
@@ -139,7 +138,7 @@ export const DisplayTable = ({
 
     setForm({
       ...formData,
-      [name]: value
+      [name]: value,
     });
 
     const setValue = (values = []) => {
@@ -150,7 +149,7 @@ export const DisplayTable = ({
       });
       setForm({
         ...formData,
-        ...updates
+        ...updates,
       });
     };
     callback({
@@ -159,13 +158,13 @@ export const DisplayTable = ({
       setOptions,
       options: generalOptions,
       setValue,
-      formData
+      formData,
     });
   };
 
   const cancelCallback = () => {
     if (formStatus === statusTypes.ADD) {
-      const index = fetchedData.findIndex(data => data._id === formData._id);
+      const index = fetchedData.findIndex((data) => data._id === formData._id);
       if (index >= 0) {
         setFetchedData(fetchedData.filter((_, idx) => index !== idx));
         setDisplay(displayValues.filter((_, idx) => index !== idx));
@@ -178,8 +177,8 @@ export const DisplayTable = ({
     setValidation({});
   };
 
-  const deleteCallback = _id => {
-    const index = fetchedData.findIndex(data => data._id === _id);
+  const deleteCallback = (_id) => {
+    const index = fetchedData.findIndex((data) => data._id === _id);
     if (index >= 0) {
       setFetchedData(fetchedData.filter((_, idx) => idx !== index));
       setDisplay(displayValues.filter((_, idx) => idx !== index));
@@ -189,11 +188,11 @@ export const DisplayTable = ({
 
   const saveCallback = () => {
     setFetchedData(
-      fetchedData.map(data => {
+      fetchedData.map((data) => {
         if (data._id === formData._id) {
           return {
             _id: uuid(),
-            ...formData
+            ...formData,
           };
         } else {
           return data;
@@ -206,7 +205,7 @@ export const DisplayTable = ({
   const returnName = (dataItem, item) => {
     if (item.optionsFrom === "server") {
       const found = item.options.find(
-        prop => String(prop.id) === String(dataItem[item.tag])
+        (prop) => String(prop.id) === String(dataItem[item.tag])
       );
       if (found) return found.name;
     } else {
@@ -216,18 +215,18 @@ export const DisplayTable = ({
 
   useEffect(() => {
     var formUpdates = {};
-    columns.forEach(item => {
+    columns.forEach((item) => {
       if (item.defaultValue) {
         formUpdates = {
           ...formUpdates,
-          [item.tag]: item.defaultValue
+          [item.tag]: item.defaultValue,
         };
       }
     });
     if (Object.values(formUpdates).length > 0) {
       setForm({
         ...formData,
-        ...formUpdates
+        ...formUpdates,
       });
       setDefaultValues(formUpdates);
     }
@@ -238,8 +237,8 @@ export const DisplayTable = ({
       <thead>
         <tr>
           {columns
-            .filter(prop => !Boolean(prop.isView))
-            .map(item => (
+            .filter((prop) => !Boolean(prop.isView))
+            .map((item) => (
               <th>{item.label}</th>
             ))}
           <th>Actions</th>
@@ -250,8 +249,8 @@ export const DisplayTable = ({
           return (
             <tr>
               {columns
-                .filter(prop => !Boolean(prop.isView))
-                .map(item => {
+                .filter((prop) => !Boolean(prop.isView))
+                .map((item) => {
                   return displayValues[idx] && !item.noEdit ? (
                     <td>
                       {item.type === "select" ? (
@@ -264,18 +263,18 @@ export const DisplayTable = ({
                               ? item.callback
                               : () => null;
                             handleChange({
-                              currentTarget: { name, value, callback }
+                              currentTarget: { name, value, callback },
                             });
                           }}
                           disabled={item.disabled}
                         >
                           <option></option>
                           {item.optionsFrom === "server"
-                            ? generalOptions[item.tag].map(_item => (
+                            ? generalOptions[item.tag].map((_item) => (
                                 <option value={_item.id}>{_item.name}</option>
                               ))
-                            : generalOptions[item.tag].map(_item => (
-                                <option value={_item}>{String(_item)}</option>
+                            : generalOptions[item.tag].map((_item) => (
+                                <option value={_item}>{_item}</option>
                               ))}
                         </Input>
                       ) : (
@@ -289,7 +288,7 @@ export const DisplayTable = ({
                               ? item.callback
                               : () => null;
                             handleChange({
-                              currentTarget: { name, value, callback }
+                              currentTarget: { name, value, callback },
                             });
                           }}
                         />
@@ -305,7 +304,7 @@ export const DisplayTable = ({
                     {hasEdit ? (
                       <>
                         {displayValues[idx] ? (
-                          <Row>
+                          <>
                             <Button
                               className="buttons bg-blue"
                               size="sm"
@@ -333,7 +332,7 @@ export const DisplayTable = ({
                               </icon>
                               <small>Cancel</small>
                             </Button>
-                          </Row>
+                          </>
                         ) : (
                           <Button
                             className="buttons"
@@ -350,9 +349,7 @@ export const DisplayTable = ({
                             <icon>
                               <MdEdit />
                             </icon>
-                            <small>
-                              <b>Edit</b>
-                            </small>
+                            <small>Edit</small>
                           </Button>
                         )}
                       </>
@@ -372,9 +369,7 @@ export const DisplayTable = ({
                           <icon>
                             <MdDelete />
                           </icon>
-                          <small>
-                            <b>Delete</b>
-                          </small>
+                          <small>Delete</small>
                         </Button>
                       </>
                     ) : (

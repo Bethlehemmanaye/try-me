@@ -1,14 +1,14 @@
 import React from "react";
 import "react-animated-slider/build/horizontal.css";
-import "./Styles/projectTitle.scss";
+import "./styles/projectTitle.scss";
 import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
 import { Spinner } from "reactstrap";
-import { EmptyLayout, LayoutRoute, MainLayout } from "./Components/Layout";
-import routes from "./Config/routes";
-import SignIn from "./Pages/Auth/SignIn";
-import SignUp from "./Pages/Auth/SignUp";
+import { EmptyLayout, LayoutRoute, MainLayout } from "./components/Layout";
+import routes from "./config/routes";
+import SignIn from "./pages/Auth/SignIn";
+import SignUp from "./pages/Auth/SignUp";
 
-const DemoPage = React.lazy(() => import("./Pages/HomePage"));
+const DemoPage = React.lazy(() => import("./pages/HomePage"));
 
 const getBasename = () => {
   return `/${process.env.PUBLIC_URL.split("/").pop()}`;

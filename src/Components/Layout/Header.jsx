@@ -10,7 +10,7 @@ import {
   ListGroupItem,
 } from "reactstrap";
 import bn from "../../utils/bemnames";
-import routes from "../../Config/routes";
+import routes from "../../config/routes";
 import { RenderButton } from "../MainRender";
 import {
   MdReorder,

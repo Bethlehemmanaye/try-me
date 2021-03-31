@@ -9,7 +9,7 @@ import {
   MdRestaurantMenu,
   MdStar,
 } from "react-icons/md";
-import routes from "../../Config/routes";
+import routes from "../../config/routes";
 import { Link } from "react-router-dom";
 
 const Sections = [

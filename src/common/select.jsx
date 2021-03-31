@@ -12,10 +12,9 @@ const Select = ({
 }) => {
   return (
     <FormGroup>
-      <Label
-        className={disabled ? "disabledLabel" : "activeLabel"}
-      
-      for={name}>{label}</Label>
+      <Label className={disabled ? "disabledLabel" : "activeLabel"} for={name}>
+        {label}
+      </Label>
       <Input
         name={name}
         id={name}
@@ -26,13 +25,13 @@ const Select = ({
       >
         <option value="" />
         {optionsFrom === "client"
-          ? options.map((option) => (
+          ? options.map(option => (
               <option key={option} value={option}>
                 {option}
               </option>
             ))
-          : options.map((option) => (
-              <option key={option.id} value={option.id}>
+          : options.map(option => (
+              <option key={option._id} value={option._id}>
                 {option.name}
               </option>
             ))}
