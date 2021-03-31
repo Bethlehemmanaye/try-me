@@ -28,7 +28,7 @@ const Table = ({ columns, data, title, state, getLoading }) => {
   }, [rootState]);
 
   return (
-    <Card className="p-2 border-0 bg-background text-light">
+    <Card className="p-2 border-0 bg-background ">
       <CardHeader className="bg-background border-0">
         <div>{"" + title ? title : ""}</div>
       </CardHeader>

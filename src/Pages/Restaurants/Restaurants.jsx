@@ -4,10 +4,10 @@ import CustomTable from "common/table";
 import React, { useEffect, useReducer } from "react";
 import { MdDelete, MdEdit, MdRemoveRedEye } from "react-icons/md";
 import { Button, Card, Col, Row } from "reactstrap";
-import CategoryAdd from "./RestaurantsForm";
+import RestaurantForm from "./RestaurantsForm";
 
 const CategoryManagement = ({
-  categorys,
+  restaurants,
   doneAdd,
   doneEdit,
   addCategory,
@@ -22,7 +22,7 @@ const CategoryManagement = ({
     {
       key: "view",
       label: "Name",
-      content: (categorys) => (
+      content: (restaurants) => (
         <Row>
           <Button
             className="buttons"
@@ -32,8 +32,8 @@ const CategoryManagement = ({
               _toggle(
                 {
                   type: "VIEW",
-                  Component: CategoryAdd,
-                  data: categorys,
+                  Component: RestaurantForm,
+                  data: restaurants,
                   title: "View Category",
                 },
                 dispatch
@@ -56,9 +56,9 @@ const CategoryManagement = ({
               _toggle(
                 {
                   type: "EDIT",
-                  Component: CategoryAdd,
+                  Component: RestaurantForm,
                   submit: editCategory,
-                  data: categorys,
+                  data: restaurants,
                   title: "Edit Category",
                 },
                 dispatch
@@ -83,7 +83,7 @@ const CategoryManagement = ({
                   deleteOptions: {
                     okCallback: okDelete,
                     title: "Are you sure?",
-                    id: categorys._id,
+                    id: restaurants._id,
                     message: "",
                   },
                 },
@@ -113,7 +113,7 @@ const CategoryManagement = ({
     deleteCategory(id);
   };
   return (
-    <Card className="profileNews bg-primary mt-2 p-2 border-0">
+    <Card className=" mt-2 p-2">
       <CommonModals
         size="sm"
         data={state.data}
@@ -129,7 +129,7 @@ const CategoryManagement = ({
             _toggle(
               {
                 type: "ADD",
-                Component: CategoryAdd,
+                Component: RestaurantForm,
                 submit: addCategory,
                 title: "New Category",
               },
@@ -138,10 +138,10 @@ const CategoryManagement = ({
           }
           size="sm"
         >
-          'Name'
+          Add New Restaurant
         </Button>
       </Col>
-      <CustomTable title="Categories" columns={columns} data={categorys} />
+      <CustomTable title="Restaurants" columns={columns} data={restaurants} />
     </Card>
   );
 };

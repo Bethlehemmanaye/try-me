@@ -49,12 +49,12 @@ class UserAdd extends ParentForm {
   render() {
     return (
       <Card className="border-0 bg-background">
-        <CardBody className="bg-background text-light">
+        <CardBody className="bg-background ">
           <Form onSubmit={this.handleSubmit}>
             <Col md={12} sm={12} xs={12}>
               {this.renderInput({
                 name: "name",
-                label: '<Translate content="categories" />',
+                label: "Name",
               })}
             </Col>
             <CardFooter className="bg-background" align="center">

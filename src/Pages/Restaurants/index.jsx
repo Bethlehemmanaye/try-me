@@ -13,17 +13,17 @@ import {
   selectEditStatus,
   selectFetchStatus,
 } from "store/Restaurants";
-import CategoryManagment from "./Restaurants";
+import RestaurantManagment from "./Restaurants";
 
 const Loader = ({
   fetchStatus,
   addStatus,
   fetchRestaurants,
-  addCategory,
+  addRestaurant,
   editStatus,
-  editCategory,
+  editRestaurant,
   deleteStatus,
-  deleteCategory,
+  deleteRestaurant,
   restaurants,
 }) => {
   const [data, setData] = useState([]);
@@ -32,18 +32,9 @@ const Loader = ({
   const [editLock, setEditLock] = useState(true);
   const [deleteLock, setDeleteLock] = useState(true);
 
-  //   const [categoryCategory, setCategoryCategory] = useState("");
-
   useEffect(() => {
     setData(restaurants);
   }, [restaurants, setData]);
-
-  //   // For Category of an author
-  //   useEffect(() => {
-  //     const categoryId = "60465553775605561ddef264";
-  //     const category = restaurants.filter(e => e.category._id === categoryId);
-  //     setCategoryCategory(category);
-  //   }, [restaurants]);
 
   useEffect(() => {
     setFetchLock(false);
@@ -63,7 +54,7 @@ const Loader = ({
     if (status === reduxStatus.failure && !addLock) {
       setAddLock(true);
     } else if (status === reduxStatus.success && !addLock) {
-      toast.success("Added Category");
+      toast.success("Added Restaurant");
       setAddLock(true);
     }
   }, [addStatus, setAddLock, addLock]);
@@ -73,7 +64,7 @@ const Loader = ({
     if (status === reduxStatus.failure && !editLock) {
       setEditLock(true);
     } else if (status === reduxStatus.success && !editLock) {
-      toast.success("Edited Category");
+      toast.success("Edited Restaurant");
       setEditLock(true);
     }
   }, [editStatus, setEditLock, editLock]);
@@ -83,35 +74,34 @@ const Loader = ({
     if (status === reduxStatus.failure && !deleteLock) {
       setDeleteLock(true);
     } else if (status === reduxStatus.success && !deleteLock) {
-      toast.success("Deleted Category");
+      toast.success("Deleted Restaurant");
       setDeleteLock(true);
     }
   }, [deleteStatus, setDeleteLock, deleteLock]);
 
-  const _addCategory = (data) => {
+  const _addRestaurant = (data) => {
     setAddLock(false);
-    addCategory(data);
+    addRestaurant(data);
   };
 
-  const _editCategory = (data) => {
+  const _editRestaurant = (data) => {
     setEditLock(false);
-    editCategory(data);
+    editRestaurant(data);
   };
 
-  const _deleteCategory = (id) => {
+  const _deleteRestaurant = (id) => {
     setDeleteLock(false);
-    deleteCategory(id);
+    deleteRestaurant(id);
   };
   return (
-    <CategoryManagment
+    <RestaurantManagment
       doneAdd={addStatus.status === reduxStatus.success && !addLock}
-      addCategory={_addCategory}
+      addRestaurant={_addRestaurant}
       doneEdit={editStatus.status === reduxStatus.success && !editLock}
-      editCategory={_editCategory}
+      editRestaurant={_editRestaurant}
       doneDelete={deleteStatus.status === reduxStatus.success && !deleteLock}
-      deleteCategory={_deleteCategory}
+      deleteRestaurant={_deleteRestaurant}
       restaurants={data}
-      //   categoryCategory={categoryCategory}
     />
   );
 };
@@ -127,9 +117,9 @@ const mapStateToProps = (state, ownProps) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   fetchRestaurants: () => dispatch(Fetch()),
-  addCategory: (data) => dispatch(Add(data)),
-  editCategory: (data) => dispatch(Edit(data)),
-  deleteCategory: (id) => dispatch(Remove(id)),
+  addRestaurant: (data) => dispatch(Add(data)),
+  editRestaurant: (data) => dispatch(Edit(data)),
+  deleteRestaurant: (id) => dispatch(Remove(id)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Loader);

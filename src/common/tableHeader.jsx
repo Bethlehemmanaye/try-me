@@ -7,7 +7,7 @@ class TableHeader extends Component {
   render() {
     return (
       <thead>
-        <tr className="text-light">
+        <tr>
           {this.props.columns.map((column) => (
             <th key={column.path || column.key}>{column.label}</th>
           ))}
