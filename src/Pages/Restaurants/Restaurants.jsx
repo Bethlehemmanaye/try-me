@@ -17,11 +17,14 @@ const RestaurantManagement = ({
 }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const columns = [
-    { path: "name", label: "Name" },
-    { path: "created_at", label: "Name" },
+    { path: "title", label: "Name" },
+    { path: "location", label: "Name" },
+    { path: "description", label: "Description" },
+    { path: "owner", label: "Owner Name" },
+
     {
       key: "view",
-      label: "Name",
+      label: "Actions",
       content: (restaurants) => (
         <Row>
           <Button
@@ -115,7 +118,7 @@ const RestaurantManagement = ({
   return (
     <Card className="mt-2 p-2 bg-background">
       <CommonModals
-        size="sm"
+        size={state.size}
         data={state.data}
         openModal={state.openModal}
         component={state.Component}
@@ -132,6 +135,7 @@ const RestaurantManagement = ({
                 Component: RestaurantForm,
                 submit: addRestaurant,
                 title: "New Restaurant",
+                size: "md",
               },
               dispatch
             )

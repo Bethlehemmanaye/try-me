@@ -1,17 +1,30 @@
 import { combineReducers } from "redux";
-
 import {
   stateName as restaurants,
   reducer as RestaurantsReducer,
 } from "./Restaurants";
+import { stateName as users, reducer as UsersReducer } from "./Users";
+import { stateName as orders, reducer as OrdersReducer } from "./Orders";
+import { stateName as foods, reducer as FoodsReducer } from "./Foods";
+import {
+  stateName as customers,
+  reducer as CustomersReducer,
+} from "./Customers";
+import {
+  stateName as feedbacks,
+  reducer as FeedbacksReducer,
+} from "./Feedbacks";
 import {
   stateName as restaurant_owners,
-  reducer as RestaurantOwnersReducer,
+  reducer as RestaurantOwners,
 } from "./RestaurantOwners";
-import { stateName as orders, reducer as OrdersReducer } from "./Orders";
 
 export default combineReducers({
   [restaurants]: RestaurantsReducer,
-  [restaurant_owners]: RestaurantOwnersReducer,
+  [users]: UsersReducer,
   [orders]: OrdersReducer,
+  [foods]: FoodsReducer,
+  [customers]: CustomersReducer,
+  [feedbacks]: FeedbacksReducer,
+  [restaurant_owners]: RestaurantOwners,
 });

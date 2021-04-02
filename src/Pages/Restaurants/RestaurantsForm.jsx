@@ -1,6 +1,6 @@
 import Joi from "joi-browser";
 import React from "react";
-import { Card, CardBody, CardFooter, Col, Form } from "reactstrap";
+import { Card, CardBody, CardFooter, Col, Form, Row } from "reactstrap";
 import ParentForm from "../../common/form";
 
 class UserAdd extends ParentForm {
@@ -51,12 +51,31 @@ class UserAdd extends ParentForm {
       <Card className="border-0 bg-background">
         <CardBody className="bg-background ">
           <Form onSubmit={this.handleSubmit}>
-            <Col md={12} sm={12} xs={12}>
-              {this.renderInput({
-                name: "name",
-                label: "Name",
-              })}
-            </Col>
+            <Row>
+              <Col md={12} sm={12} xs={12}>
+                <h1>Image Uploader</h1>
+              </Col>
+              <Col md={6} sm={6} xs={12}>
+                {this.renderInput({
+                  name: "title",
+                  label: "Name",
+                })}
+              </Col>
+              <Col md={6} sm={6} xs={12}>
+                {this.renderInput({
+                  name: "location",
+                  label: "Location",
+                })}
+              </Col>
+              <Col md={12} sm={12} xs={12}>
+                {this.renderInput({
+                  name: "description",
+                  label: "Description",
+                  type: "textarea",
+                })}
+              </Col>
+            </Row>
+
             <CardFooter className="bg-background" align="center">
               {this.renderButton("Save")}
             </CardFooter>

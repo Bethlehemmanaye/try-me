@@ -1,16 +1,16 @@
 import StateArrayModel from "wrappers/StateModels/StateArrayModel";
 
-const RestaurantOwner = new StateArrayModel({
+const RestaurantOwners = new StateArrayModel({
   stateName: "restaurant_owners",
 });
-RestaurantOwner.setURL("/restaurant-owners");
+RestaurantOwners.setURL("/restaurant_owners");
 
-RestaurantOwner.createSlice();
+RestaurantOwners.createSlice();
 
-export const { stateName, reducer } = RestaurantOwner.getEntity();
-export const { getLoading } = RestaurantOwner;
+export const { stateName, reducer } = RestaurantOwners.getEntity();
+export const { getLoading } = RestaurantOwners;
 
-RestaurantOwner.enableResults({ fetchEnabled: false });
+RestaurantOwners.enableResults({ fetchEnabled: false });
 
 export const {
   selectAddStatus,
@@ -19,7 +19,7 @@ export const {
   selectPatchStatus,
   selectDeleteStatus,
   selectData,
-} = RestaurantOwner.getSelectors();
+} = RestaurantOwners.getSelectors();
 
 export const {
   Add,
@@ -27,6 +27,6 @@ export const {
   Edit,
   Patch,
   Remove,
-} = RestaurantOwner.getAPIHandles();
+} = RestaurantOwners.getAPIHandles();
 
-export { selectData as selectRestaurantOwners };
+export { selectData as selectRestaurantOwnerss };
