@@ -18,6 +18,7 @@ const RestaurantOwners = React.lazy(() => import("./pages/RestaurantOwners"));
 const Foods = React.lazy(() => import("./pages/Foods"));
 const Customers = React.lazy(() => import("./pages/Customers"));
 const Orders = React.lazy(() => import("./pages/Orders"));
+const Feedbacks = React.lazy(() => import("./pages/Feedbacks"));
 
 const getBasename = () => {
   return `/${process.env.PUBLIC_URL.split("/").pop()}`;
@@ -79,6 +80,7 @@ function App() {
                 <Route exact path={routes.foods} component={Foods} />
                 <Route exact path={routes.customers} component={Customers} />
                 <Route exact path={routes.orders} component={Orders} />
+                <Route exact path={routes.feedbacks} component={Feedbacks} />
               </React.Suspense>
             </MainLayout>
           </React.Fragment>
