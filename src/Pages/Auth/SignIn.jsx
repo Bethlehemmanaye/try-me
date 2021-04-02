@@ -13,6 +13,7 @@ import {
 } from "reactstrap";
 import routes from "../../config/routes";
 import { MdHome } from "react-icons/md";
+import Logo from "../../assets/Logo/Logo_Primary.png";
 
 const SignIn = () => {
   return (
@@ -22,7 +23,8 @@ const SignIn = () => {
           <MdHome size={20} /> <small>Back to Home</small>
         </Link>
         <CardHeader align="center">
-          <h1>Sign In</h1>
+          <img height="50" width="50" alt="" src={Logo} />
+          <h5>Sign In</h5>
         </CardHeader>
         <CardBody>
           <FormGroup>
