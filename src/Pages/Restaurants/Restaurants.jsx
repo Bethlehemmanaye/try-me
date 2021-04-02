@@ -116,7 +116,7 @@ const RestaurantManagement = ({
     deleteRestaurant(id);
   };
   return (
-    <Card className="mt-2 p-2 bg-background">
+    <Card className="mt-2 p-2 backgroundd">
       <CommonModals
         size={state.size}
         data={state.data}

@@ -1,6 +1,11 @@
 .homePageContainer {
-  margin: 1%;
-  height: 100vh;
+  padding: 1%;
+  min-height: 100vh;
+  background-image: url("../../assets/Background.png");
+  background-size: contain;
+  .header {
+    background: none;
+  }
   .card {
     margin: 10px;
     padding: 20px;

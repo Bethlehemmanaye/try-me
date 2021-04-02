@@ -59,7 +59,7 @@ const Sections = [
 const HomePage = () => {
   return (
     <div className="homePageContainer">
-      <CardHeader className="bg-background text-primary">
+      <CardHeader className="header">
         <h3>Welcome To Restaurant Management System</h3>
       </CardHeader>
       <Row>
