@@ -4,29 +4,28 @@ import CustomTable from "common/table";
 import React, { useEffect, useReducer } from "react";
 import { MdDelete, MdEdit, MdRemoveRedEye } from "react-icons/md";
 import { Button, Card, Col, Row } from "reactstrap";
-import RestaurantOwnersForm from "./OrdersForm";
+import OrdersForm from "./OrdersForm";
 
-const RestaurantOwnersManagement = ({
-  restaurantOwners,
+const OrdersManagement = ({
+  orders,
   doneAdd,
   doneEdit,
-  addRestaurant,
-  editRestaurant,
-  deleteRestaurant,
+  addOrder,
+  editOrder,
+  deleteOrder,
   doneDelete,
 }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const columns = [
-    { path: "title", label: "Name" },
-    { path: "email", label: "Email" },
-    { path: "description", label: "Description" },
-    { path: "restaurant", label: "Restaurant" },
-    { path: "category", label: "Category" },
-    { path: "delivery_expectency", label: "Delivery Expectency Time" },
+    { path: "status", label: "Status" },
+    { path: "customer.name", label: "Customer" },
+    { path: "food.name", label: "Food Name" },
+    { path: "quantity", label: "Quantity" },
+    { path: "remarks", label: "Remarks" },
     {
       key: "view",
       label: "Actions",
-      content: (restaurantOwners) => (
+      content: (orders) => (
         <Row>
           <Button
             className="buttons"
@@ -36,9 +35,9 @@ const RestaurantOwnersManagement = ({
               _toggle(
                 {
                   type: "VIEW",
-                  Component: RestaurantOwnersForm,
-                  data: restaurantOwners,
-                  title: "View Foods",
+                  Component: OrdersForm,
+                  data: orders,
+                  title: "View Orders",
                 },
                 dispatch
               );
@@ -60,10 +59,10 @@ const RestaurantOwnersManagement = ({
               _toggle(
                 {
                   type: "EDIT",
-                  Component: RestaurantOwnersForm,
-                  submit: editRestaurant,
-                  data: restaurantOwners,
-                  title: "Edit Foods",
+                  Component: OrdersForm,
+                  submit: editOrder,
+                  data: orders,
+                  title: "Edit Orders",
                 },
                 dispatch
               );
@@ -87,7 +86,7 @@ const RestaurantOwnersManagement = ({
                   deleteOptions: {
                     okCallback: okDelete,
                     title: "Are you sure?",
-                    id: restaurantOwners._id,
+                    id: orders._id,
                     message: "",
                   },
                 },
@@ -114,7 +113,7 @@ const RestaurantOwnersManagement = ({
   }, [doneAdd, doneEdit]);
 
   const okDelete = (id) => {
-    deleteRestaurant(id);
+    deleteOrder(id);
   };
   return (
     <Card className="mt-2 p-2 bg-background">
@@ -133,9 +132,9 @@ const RestaurantOwnersManagement = ({
             _toggle(
               {
                 type: "ADD",
-                Component: RestaurantOwnersForm,
-                submit: addRestaurant,
-                title: "New Foods",
+                Component: OrdersForm,
+                submit: addOrder,
+                title: "New Orders",
                 size: "md",
               },
               dispatch
@@ -143,12 +142,12 @@ const RestaurantOwnersManagement = ({
           }
           size="sm"
         >
-          Add New Food
+          Add New Order
         </Button>
       </Col>
-      <CustomTable title="Foods" columns={columns} data={restaurantOwners} />
+      <CustomTable title="Orders" columns={columns} data={orders} />
     </Card>
   );
 };
 
-export default RestaurantOwnersManagement;
+export default OrdersManagement;

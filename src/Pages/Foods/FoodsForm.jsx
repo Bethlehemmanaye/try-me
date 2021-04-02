@@ -3,7 +3,7 @@ import React from "react";
 import { Card, CardBody, CardFooter, Col, Form, Row } from "reactstrap";
 import ParentForm from "../../common/form";
 
-class UserAdd extends ParentForm {
+class FoodsForm extends ParentForm {
   constructor(props) {
     super(props);
     this.initialState = {
@@ -102,4 +102,4 @@ class UserAdd extends ParentForm {
     );
   }
 }
-export default UserAdd;
+export default FoodsForm;

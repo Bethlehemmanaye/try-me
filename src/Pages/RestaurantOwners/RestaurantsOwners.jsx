@@ -10,9 +10,9 @@ const RestaurantOwnersManagement = ({
   restaurantOwners,
   doneAdd,
   doneEdit,
-  addRestaurant,
-  editRestaurant,
-  deleteRestaurant,
+  addRestaurantOwner,
+  editRestaurantOwner,
+  deleteRestaurantOwner,
   doneDelete,
 }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
@@ -58,7 +58,7 @@ const RestaurantOwnersManagement = ({
                 {
                   type: "EDIT",
                   Component: RestaurantOwnersForm,
-                  submit: editRestaurant,
+                  submit: editRestaurantOwner,
                   data: restaurantOwners,
                   title: "Edit Restaurant Owners",
                 },
@@ -111,7 +111,7 @@ const RestaurantOwnersManagement = ({
   }, [doneAdd, doneEdit]);
 
   const okDelete = (id) => {
-    deleteRestaurant(id);
+    deleteRestaurantOwner(id);
   };
   return (
     <Card className="mt-2 p-2 bg-background">
@@ -131,7 +131,7 @@ const RestaurantOwnersManagement = ({
               {
                 type: "ADD",
                 Component: RestaurantOwnersForm,
-                submit: addRestaurant,
+                submit: addRestaurantOwner,
                 title: "New Restaurant Owners",
                 size: "md",
               },

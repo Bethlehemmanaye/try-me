@@ -10,9 +10,9 @@ const Customers = ({
   customers,
   doneAdd,
   doneEdit,
-  addRestaurant,
-  editRestaurant,
-  deleteRestaurant,
+  addCustomer,
+  editCustomer,
+  deleteCustomer,
   doneDelete,
 }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
@@ -59,7 +59,7 @@ const Customers = ({
                 {
                   type: "EDIT",
                   Component: CustomersForm,
-                  submit: editRestaurant,
+                  submit: editCustomer,
                   data: customers,
                   title: "Edit Customers",
                 },
@@ -112,7 +112,7 @@ const Customers = ({
   }, [doneAdd, doneEdit]);
 
   const okDelete = (id) => {
-    deleteRestaurant(id);
+    deleteCustomer(id);
   };
   return (
     <Card className="mt-2 p-2 bg-background">
@@ -132,7 +132,7 @@ const Customers = ({
               {
                 type: "ADD",
                 Component: CustomersForm,
-                submit: addRestaurant,
+                submit: addCustomer,
                 title: "New Customers",
                 size: "md",
               },

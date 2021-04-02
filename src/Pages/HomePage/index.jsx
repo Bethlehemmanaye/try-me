@@ -49,9 +49,9 @@ const Sections = [
       "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Doloremque quos reprehenderit ipsa suscipit nemo! Voluptatum a libero quaerat ipsa nulla in doloremque accusantium id eius, ea placeat perspiciatis fugiat praesentium.",
   },
   {
-    label: "Ratings",
+    label: "Feedbacks",
     icon: <MdStar color="text-primary" size={80} />,
-    route: routes.signUp,
+    route: routes.feedbacks,
     description:
       "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Doloremque quos reprehenderit ipsa suscipit nemo! Voluptatum a libero quaerat ipsa nulla in doloremque accusantium id eius, ea placeat perspiciatis fugiat praesentium.",
   },

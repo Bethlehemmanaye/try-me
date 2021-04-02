@@ -52,43 +52,38 @@ class UserAdd extends ParentForm {
         <CardBody className="bg-background ">
           <Form onSubmit={this.handleSubmit}>
             <Row>
-              <Col md={12} sm={12} xs={12}>
-                {/* {this.renderInput({
-                  name: "phone_number",
-                  label: "Phone Number",
-                  type: "number",
-                })} */}
-                <h1>Image Uploader Goes Here</h1>
-              </Col>
-              <Col md={12} sm={12} xs={12}>
-                {this.renderInput({
-                  name: "title",
-                  label: "Name",
+              <Col md={6} sm={6} xs={12}>
+                {this.renderSelect({
+                  name: "status",
+                  label: "Status",
+                  options: ["Active", "Detained", "Blah blah"],
                 })}
               </Col>
-              <Col md={12} sm={12} xs={12}>
+              <Col md={6} sm={6} xs={12}>
                 {this.renderInput({
-                  name: "description",
-                  label: "Description",
-                  type: "textarea",
+                  name: "customer",
+                  label: "Customer",
                 })}
-              </Col>
-              <Col md={12} sm={12} xs={12}>
-                <h1>Ingridients Goes Here</h1>
               </Col>
 
               <Col md={6} sm={6} xs={12}>
                 {this.renderInput({
-                  name: "delivery_expectancy",
-                  label: "Delivery Expectancy Time",
-                  type: "time",
+                  name: "food",
+                  label: "Food Name",
                 })}
               </Col>
               <Col md={6} sm={6} xs={12}>
-                {this.renderSelect({
-                  name: "category",
+                {this.renderInput({
+                  name: "quantity",
                   label: "Category",
-                  options: ["Category One", "Category Two"],
+                  type: "number",
+                })}
+              </Col>
+              <Col md={12} sm={12} xs={12}>
+                {this.renderInput({
+                  name: "remarks",
+                  label: "Remarks",
+                  type: "textarea",
                 })}
               </Col>
             </Row>

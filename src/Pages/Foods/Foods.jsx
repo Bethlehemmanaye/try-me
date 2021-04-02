@@ -4,15 +4,15 @@ import CustomTable from "common/table";
 import React, { useEffect, useReducer } from "react";
 import { MdDelete, MdEdit, MdRemoveRedEye } from "react-icons/md";
 import { Button, Card, Col, Row } from "reactstrap";
-import RestaurantOwnersForm from "./FoodsForm";
+import FoodsForm from "./FoodsForm";
 
-const RestaurantOwnersManagement = ({
-  restaurantOwners,
+const Foods = ({
+  foods,
   doneAdd,
   doneEdit,
-  addRestaurant,
-  editRestaurant,
-  deleteRestaurant,
+  addFood,
+  editFood,
+  deleteFood,
   doneDelete,
 }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
@@ -26,7 +26,7 @@ const RestaurantOwnersManagement = ({
     {
       key: "view",
       label: "Actions",
-      content: (restaurantOwners) => (
+      content: (foods) => (
         <Row>
           <Button
             className="buttons"
@@ -36,8 +36,8 @@ const RestaurantOwnersManagement = ({
               _toggle(
                 {
                   type: "VIEW",
-                  Component: RestaurantOwnersForm,
-                  data: restaurantOwners,
+                  Component: FoodsForm,
+                  data: foods,
                   title: "View Foods",
                 },
                 dispatch
@@ -60,9 +60,9 @@ const RestaurantOwnersManagement = ({
               _toggle(
                 {
                   type: "EDIT",
-                  Component: RestaurantOwnersForm,
-                  submit: editRestaurant,
-                  data: restaurantOwners,
+                  Component: FoodsForm,
+                  submit: editFood,
+                  data: foods,
                   title: "Edit Foods",
                 },
                 dispatch
@@ -87,7 +87,7 @@ const RestaurantOwnersManagement = ({
                   deleteOptions: {
                     okCallback: okDelete,
                     title: "Are you sure?",
-                    id: restaurantOwners._id,
+                    id: foods._id,
                     message: "",
                   },
                 },
@@ -99,7 +99,7 @@ const RestaurantOwnersManagement = ({
               <MdDelete />
             </icon>
             <small>
-              <b>'Name'</b>
+              <b>Delete</b>
             </small>
           </Button>
         </Row>
@@ -114,7 +114,7 @@ const RestaurantOwnersManagement = ({
   }, [doneAdd, doneEdit]);
 
   const okDelete = (id) => {
-    deleteRestaurant(id);
+    deleteFood(id);
   };
   return (
     <Card className="mt-2 p-2 bg-background">
@@ -133,8 +133,8 @@ const RestaurantOwnersManagement = ({
             _toggle(
               {
                 type: "ADD",
-                Component: RestaurantOwnersForm,
-                submit: addRestaurant,
+                Component: FoodsForm,
+                submit: addFood,
                 title: "New Foods",
                 size: "md",
               },
@@ -146,9 +146,9 @@ const RestaurantOwnersManagement = ({
           Add New Food
         </Button>
       </Col>
-      <CustomTable title="Foods" columns={columns} data={restaurantOwners} />
+      <CustomTable title="Foods" columns={columns} data={foods} />
     </Card>
   );
 };
 
-export default RestaurantOwnersManagement;
+export default Foods;
