@@ -6,13 +6,13 @@ import { MdDelete, MdEdit, MdRemoveRedEye } from "react-icons/md";
 import { Button, Card, Col, Row } from "reactstrap";
 import RestaurantForm from "./RestaurantsForm";
 
-const CategoryManagement = ({
+const RestaurantManagement = ({
   restaurants,
   doneAdd,
   doneEdit,
-  addCategory,
-  editCategory,
-  deleteCategory,
+  addRestaurant,
+  editRestaurant,
+  deleteRestaurant,
   doneDelete,
 }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
@@ -34,7 +34,7 @@ const CategoryManagement = ({
                   type: "VIEW",
                   Component: RestaurantForm,
                   data: restaurants,
-                  title: "View Category",
+                  title: "View Restaurant",
                 },
                 dispatch
               );
@@ -57,9 +57,9 @@ const CategoryManagement = ({
                 {
                   type: "EDIT",
                   Component: RestaurantForm,
-                  submit: editCategory,
+                  submit: editRestaurant,
                   data: restaurants,
-                  title: "Edit Category",
+                  title: "Edit Restaurant",
                 },
                 dispatch
               );
@@ -110,10 +110,10 @@ const CategoryManagement = ({
   }, [doneAdd, doneEdit]);
 
   const okDelete = (id) => {
-    deleteCategory(id);
+    deleteRestaurant(id);
   };
   return (
-    <Card className=" mt-2 p-2">
+    <Card className="mt-2 p-2 bg-background">
       <CommonModals
         size="sm"
         data={state.data}
@@ -130,8 +130,8 @@ const CategoryManagement = ({
               {
                 type: "ADD",
                 Component: RestaurantForm,
-                submit: addCategory,
-                title: "New Category",
+                submit: addRestaurant,
+                title: "New Restaurant",
               },
               dispatch
             )
@@ -146,4 +146,4 @@ const CategoryManagement = ({
   );
 };
 
-export default CategoryManagement;
+export default RestaurantManagement;

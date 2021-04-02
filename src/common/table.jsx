@@ -28,15 +28,15 @@ const Table = ({ columns, data, title, state, getLoading }) => {
   }, [rootState]);
 
   return (
-    <Card className="p-2 border-0 bg-background ">
-      <CardHeader className="bg-background border-0">
+    <Card className="m-2 p-3">
+      <CardHeader>
         <div>{"" + title ? title : ""}</div>
       </CardHeader>
-      <ReactstrapTable hover>
+      <ReactstrapTable hover borderless>
         <TableHeader columns={columns} />
         <TableBody data={data} columns={columns} />
       </ReactstrapTable>
-      <CardFooter className="bg-background">
+      <CardFooter>
         <TableFooter />
       </CardFooter>
     </Card>

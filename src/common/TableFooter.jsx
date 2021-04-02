@@ -82,7 +82,7 @@ const TableFooter = () => {
   }, [offset, pageLimit, clicked, dispatch, maxLimit]);
 
   return (
-    <Col className="bg-background" sm={12} xs={12} md={12} align="center">
+    <Col sm={12} xs={12} md={12} align="center">
       <Pagination size="sm">
         <PaginationItem disabled={offset === 0}>
           <PaginationLink first href="#" onClick={() => handleChange(0)}>
