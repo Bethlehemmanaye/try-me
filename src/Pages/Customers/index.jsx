@@ -8,23 +8,23 @@ import {
   Fetch,
   Remove,
   selectAddStatus,
-  selectFoods,
+  selectCustomers,
   selectDeleteStatus,
   selectEditStatus,
   selectFetchStatus,
-} from "store/Foods";
-import Foods from "./Foods";
+} from "store/Customers";
+import Customers from "./Customers";
 
 const Loader = ({
   fetchStatus,
   addStatus,
-  fetchFoods,
-  addFood,
+  fetchCustomers,
+  addCustomer,
   editStatus,
-  editFood,
+  editCustomer,
   deleteStatus,
-  deleteFood,
-  restaurantOwners,
+  deleteCustomer,
+  customers,
 }) => {
   const [data, setData] = useState([]);
   const [fetchLock, setFetchLock] = useState(true);
@@ -33,13 +33,13 @@ const Loader = ({
   const [deleteLock, setDeleteLock] = useState(true);
 
   useEffect(() => {
-    setData(restaurantOwners);
-  }, [restaurantOwners, setData]);
+    setData(customers);
+  }, [customers, setData]);
 
   useEffect(() => {
     setFetchLock(false);
-    fetchFoods();
-  }, [fetchFoods, setFetchLock]);
+    fetchCustomers();
+  }, [fetchCustomers, setFetchLock]);
 
   useEffect(() => {
     const { status } = fetchStatus;
@@ -79,29 +79,29 @@ const Loader = ({
     }
   }, [deleteStatus, setDeleteLock, deleteLock]);
 
-  const _addFood = (data) => {
+  const _addCustomer = (data) => {
     setAddLock(false);
-    addFood(data);
+    addCustomer(data);
   };
 
-  const _editFood = (data) => {
+  const _editCustomer = (data) => {
     setEditLock(false);
-    editFood(data);
+    editCustomer(data);
   };
 
-  const _deleteFood = (id) => {
+  const _deleteCustomer = (id) => {
     setDeleteLock(false);
-    deleteFood(id);
+    deleteCustomer(id);
   };
   return (
-    <Foods
+    <Customers
       doneAdd={addStatus.status === reduxStatus.success && !addLock}
-      addFood={_addFood}
+      addCustomer={_addCustomer}
       doneEdit={editStatus.status === reduxStatus.success && !editLock}
-      editFood={_editFood}
+      editCustomer={_editCustomer}
       doneDelete={deleteStatus.status === reduxStatus.success && !deleteLock}
-      deleteFood={_deleteFood}
-      restaurantOwners={data}
+      deleteCustomer={_deleteCustomer}
+      customers={data}
     />
   );
 };
@@ -112,14 +112,14 @@ const mapStateToProps = (state, ownProps) => ({
   addStatus: selectAddStatus(state),
   editStatus: selectEditStatus(state),
   deleteStatus: selectDeleteStatus(state),
-  restaurantOwners: selectFoods(state),
+  customers: selectCustomers(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  fetchFoods: () => dispatch(Fetch()),
-  addFood: (data) => dispatch(Add(data)),
-  editFood: (data) => dispatch(Edit(data)),
-  deleteFood: (id) => dispatch(Remove(id)),
+  fetchCustomers: () => dispatch(Fetch()),
+  addCustomer: (data) => dispatch(Add(data)),
+  editCustomer: (data) => dispatch(Edit(data)),
+  deleteCustomer: (id) => dispatch(Remove(id)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Loader);

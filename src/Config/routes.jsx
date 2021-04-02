@@ -3,4 +3,10 @@ export default {
   signUp: "/signUp",
   signIn: "/signIn",
   restaurants: "/restaurants",
+  restaurantOwners: "/restaurantOwners",
+  foods: "/foods",
+  feedbacks: "/feedbacks",
+  customers: "/customers",
+  users: "/users",
+  orders: "/orders",
 };

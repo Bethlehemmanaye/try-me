@@ -8,23 +8,23 @@ import {
   Fetch,
   Remove,
   selectAddStatus,
-  selectFoods,
+  selectOrders,
   selectDeleteStatus,
   selectEditStatus,
   selectFetchStatus,
-} from "store/Foods";
-import Foods from "./Foods";
+} from "store/Orders";
+import Orders from "./Orders";
 
 const Loader = ({
   fetchStatus,
   addStatus,
-  fetchFoods,
-  addFood,
+  fetchOrders,
+  addOrder,
   editStatus,
-  editFood,
+  editOrder,
   deleteStatus,
-  deleteFood,
-  restaurantOwners,
+  deleteOrder,
+  orders,
 }) => {
   const [data, setData] = useState([]);
   const [fetchLock, setFetchLock] = useState(true);
@@ -33,18 +33,18 @@ const Loader = ({
   const [deleteLock, setDeleteLock] = useState(true);
 
   useEffect(() => {
-    setData(restaurantOwners);
-  }, [restaurantOwners, setData]);
+    setData(orders);
+  }, [orders, setData]);
 
   useEffect(() => {
     setFetchLock(false);
-    fetchFoods();
-  }, [fetchFoods, setFetchLock]);
+    fetchOrders();
+  }, [fetchOrders, setFetchLock]);
 
   useEffect(() => {
     const { status } = fetchStatus;
     if (status === reduxStatus.failure && !fetchLock) {
-      toast.error("Failed fetching Restaurant Owners");
+      toast.error("Failed fetching Orders");
       setFetchLock(true);
     }
   }, [fetchStatus, setFetchLock, fetchLock]);
@@ -54,7 +54,7 @@ const Loader = ({
     if (status === reduxStatus.failure && !addLock) {
       setAddLock(true);
     } else if (status === reduxStatus.success && !addLock) {
-      toast.success("Added Restaurant Owner");
+      toast.success("Added Order");
       setAddLock(true);
     }
   }, [addStatus, setAddLock, addLock]);
@@ -64,7 +64,7 @@ const Loader = ({
     if (status === reduxStatus.failure && !editLock) {
       setEditLock(true);
     } else if (status === reduxStatus.success && !editLock) {
-      toast.success("Edited Restaurant Owner");
+      toast.success("Edited Order");
       setEditLock(true);
     }
   }, [editStatus, setEditLock, editLock]);
@@ -74,34 +74,34 @@ const Loader = ({
     if (status === reduxStatus.failure && !deleteLock) {
       setDeleteLock(true);
     } else if (status === reduxStatus.success && !deleteLock) {
-      toast.success("Deleted Restaurant Owner");
+      toast.success("Deleted Order");
       setDeleteLock(true);
     }
   }, [deleteStatus, setDeleteLock, deleteLock]);
 
-  const _addFood = (data) => {
+  const _addOrder = (data) => {
     setAddLock(false);
-    addFood(data);
+    addOrder(data);
   };
 
-  const _editFood = (data) => {
+  const _editOrder = (data) => {
     setEditLock(false);
-    editFood(data);
+    editOrder(data);
   };
 
-  const _deleteFood = (id) => {
+  const _deleteOrder = (id) => {
     setDeleteLock(false);
-    deleteFood(id);
+    deleteOrder(id);
   };
   return (
-    <Foods
+    <Orders
       doneAdd={addStatus.status === reduxStatus.success && !addLock}
-      addFood={_addFood}
+      addOrder={_addOrder}
       doneEdit={editStatus.status === reduxStatus.success && !editLock}
-      editFood={_editFood}
+      editOrder={_editOrder}
       doneDelete={deleteStatus.status === reduxStatus.success && !deleteLock}
-      deleteFood={_deleteFood}
-      restaurantOwners={data}
+      deleteOrder={_deleteOrder}
+      orders={data}
     />
   );
 };
@@ -112,14 +112,14 @@ const mapStateToProps = (state, ownProps) => ({
   addStatus: selectAddStatus(state),
   editStatus: selectEditStatus(state),
   deleteStatus: selectDeleteStatus(state),
-  restaurantOwners: selectFoods(state),
+  orders: selectOrders(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  fetchFoods: () => dispatch(Fetch()),
-  addFood: (data) => dispatch(Add(data)),
-  editFood: (data) => dispatch(Edit(data)),
-  deleteFood: (id) => dispatch(Remove(id)),
+  fetchOrders: () => dispatch(Fetch()),
+  addOrder: (data) => dispatch(Add(data)),
+  editOrder: (data) => dispatch(Edit(data)),
+  deleteOrder: (id) => dispatch(Remove(id)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Loader);

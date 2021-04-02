@@ -18,7 +18,7 @@ const CommonModals = (props) => {
 };
 
 CommonModals.defaultProps = {
-  size: "xl",
+  size: "md",
 };
 
 export default CommonModals;

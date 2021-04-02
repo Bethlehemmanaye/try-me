@@ -14,6 +14,10 @@ import { ToastContainer, Zoom } from "react-toastify";
 
 const HomePage = React.lazy(() => import("./pages/HomePage"));
 const Restaurants = React.lazy(() => import("./pages/Restaurants"));
+const RestaurantOwners = React.lazy(() => import("./pages/RestaurantOwners"));
+const Foods = React.lazy(() => import("./pages/Foods"));
+const Customers = React.lazy(() => import("./pages/Customers"));
+const Orders = React.lazy(() => import("./pages/Orders"));
 
 const getBasename = () => {
   return `/${process.env.PUBLIC_URL.split("/").pop()}`;
@@ -67,6 +71,14 @@ function App() {
                   path={routes.restaurants}
                   component={Restaurants}
                 />
+                <Route
+                  exact
+                  path={routes.restaurantOwners}
+                  component={RestaurantOwners}
+                />
+                <Route exact path={routes.foods} component={Foods} />
+                <Route exact path={routes.customers} component={Customers} />
+                <Route exact path={routes.orders} component={Orders} />
               </React.Suspense>
             </MainLayout>
           </React.Fragment>
