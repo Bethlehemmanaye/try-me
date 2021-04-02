@@ -52,13 +52,8 @@ class FoodsForm extends ParentForm {
         <CardBody className="bg-background ">
           <Form onSubmit={this.handleSubmit}>
             <Row>
-              <Col md={12} sm={12} xs={12}>
-                {/* {this.renderInput({
-                  name: "phone_number",
-                  label: "Phone Number",
-                  type: "number",
-                })} */}
-                <h1>Image Uploader Goes Here</h1>
+              <Col align="center" md={12} xs={12} sm={12}>
+                {this.renderFileUploader("images", "Food Images")}
               </Col>
               <Col md={12} sm={12} xs={12}>
                 {this.renderInput({

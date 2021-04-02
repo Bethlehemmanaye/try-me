@@ -52,8 +52,8 @@ class UserAdd extends ParentForm {
         <CardBody className="bg-background ">
           <Form onSubmit={this.handleSubmit}>
             <Row>
-              <Col md={12} sm={12} xs={12}>
-                <h1>Image Uploader</h1>
+              <Col align="center" md={12} xs={12} sm={12}>
+                {this.renderFileUploader("images", "Restaurant Image")}
               </Col>
               <Col md={6} sm={6} xs={12}>
                 {this.renderInput({
