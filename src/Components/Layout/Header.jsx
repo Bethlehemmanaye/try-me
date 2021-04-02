@@ -23,6 +23,7 @@ import {
   MdPageview,
 } from "react-icons/md";
 import { Link } from "react-router-dom";
+import Logo from "../../assets/Logo/Logo_White.png";
 
 const bem = bn.create("header");
 
@@ -71,12 +72,14 @@ class Header extends React.Component {
             to={{ pathname: routes.homePage }}
             style={{ textDecoration: "none" }}
           >
-            <Nav navbar>LOGO </Nav>
+            <Nav navbar>
+              <img width="35" height="35" alt="" src={Logo} />{" "}
+            </Nav>
           </Link>
 
           {isMobile && (
             <Nav navbar className="ml-2">
-              Project Title
+              Restaurant Management System
             </Nav>
           )}
           {isMobile ? (
