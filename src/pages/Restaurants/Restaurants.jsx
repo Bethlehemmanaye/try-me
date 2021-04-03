@@ -1,153 +1,91 @@
-import CommonModals from "common/CommonModal";
-import { initialState, reducer, _toggle } from "common/ModalOptions";
-import CustomTable from "common/table";
-import React, { useEffect, useReducer } from "react";
-import { MdDelete, MdEdit, MdRemoveRedEye } from "react-icons/md";
-import { Button, Card, Col, Row } from "reactstrap";
-import RestaurantForm from "./RestaurantsForm";
+import React from "react";
+import { Row, Col, Card, CardHeader, CardSubtitle } from "reactstrap";
+import {
+  MdGetApp,
+  MdList,
+  MdPeople,
+  MdRestaurant,
+  MdRestaurantMenu,
+  MdStar,
+} from "react-icons/md";
+import routes from "../../config/routes";
+import { Link } from "react-router-dom";
 
-const RestaurantManagement = ({
-  restaurants,
-  doneAdd,
-  doneEdit,
-  addRestaurant,
-  editRestaurant,
-  deleteRestaurant,
-  doneDelete,
-}) => {
-  const [state, dispatch] = useReducer(reducer, initialState);
-  const columns = [
-    { path: "title", label: "Name" },
-    { path: "location", label: "Name" },
-    { path: "description", label: "Description" },
-    { path: "owner", label: "Owner Name" },
+const Sections = [
+  {
+    label: "Restaurant Owners List",
+    icon: <MdRestaurant color="text-primary" size={80} />,
+    route: routes.singleRestaurants,
+    description:
+      "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Doloremque quos reprehenderit ipsa suscipit nemo! Voluptatum a libero quaerat ipsa nulla in doloremque accusantium id eius, ea placeat perspiciatis fugiat praesentium.",
+  },
+  {
+    label: "Customers",
+    icon: <MdPeople color="text-primary" size={80} />,
+    route: routes.singleRestaurants,
+    description:
+      "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Doloremque quos reprehenderit ipsa suscipit nemo! Voluptatum a libero quaerat ipsa nulla in doloremque accusantium id eius, ea placeat perspiciatis fugiat praesentium.",
+  },
+  {
+    label: "Restaurants",
+    icon: <MdRestaurantMenu color="text-primary" size={80} />,
+    route: routes.singleRestaurants,
+    description:
+      "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Doloremque quos reprehenderit ipsa suscipit nemo! Voluptatum a libero quaerat ipsa nulla in doloremque accusantium id eius, ea placeat perspiciatis fugiat praesentium.",
+  },
+  {
+    label: "Foods",
+    icon: <MdGetApp color="text-primary" size={80} />,
+    route: routes.singleRestaurants,
+    description:
+      "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Doloremque quos reprehenderit ipsa suscipit nemo! Voluptatum a libero quaerat ipsa nulla in doloremque accusantium id eius, ea placeat perspiciatis fugiat praesentium.",
+  },
+  {
+    label: "Orders",
+    icon: <MdList color="text-primary" size={80} />,
+    route: routes.singleRestaurants,
+    description:
+      "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Doloremque quos reprehenderit ipsa suscipit nemo! Voluptatum a libero quaerat ipsa nulla in doloremque accusantium id eius, ea placeat perspiciatis fugiat praesentium.",
+  },
+  {
+    label: "Feedbacks",
+    icon: <MdStar color="text-primary" size={80} />,
+    route: routes.singleRestaurants,
+    description:
+      "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Doloremque quos reprehenderit ipsa suscipit nemo! Voluptatum a libero quaerat ipsa nulla in doloremque accusantium id eius, ea placeat perspiciatis fugiat praesentium.",
+  },
+];
 
-    {
-      key: "view",
-      label: "Actions",
-      content: (restaurants) => (
-        <Row>
-          <Button
-            className="buttons"
-            size="sm"
-            color="blue"
-            onClick={() => {
-              _toggle(
-                {
-                  type: "VIEW",
-                  Component: RestaurantForm,
-                  data: restaurants,
-                  title: "View Restaurant",
-                },
-                dispatch
-              );
-            }}
-          >
-            <icon>
-              {" "}
-              <MdRemoveRedEye />
-            </icon>
-            <small>
-              <b>'Name'</b>
-            </small>
-          </Button>
-          <Button
-            className="buttons"
-            size="sm"
-            color="warning"
-            onClick={() => {
-              _toggle(
-                {
-                  type: "EDIT",
-                  Component: RestaurantForm,
-                  submit: editRestaurant,
-                  data: restaurants,
-                  title: "Edit Restaurant",
-                },
-                dispatch
-              );
-            }}
-          >
-            <icon>
-              <MdEdit />
-            </icon>
-            <small>
-              <b>'Name'</b>
-            </small>
-          </Button>
-          <Button
-            className="buttons"
-            size="sm"
-            color="danger"
-            onClick={() => {
-              _toggle(
-                {
-                  type: "DELETE",
-                  deleteOptions: {
-                    okCallback: okDelete,
-                    title: "Are you sure?",
-                    id: restaurants._id,
-                    message: "",
-                  },
-                },
-                dispatch
-              );
-            }}
-          >
-            <icon>
-              <MdDelete />
-            </icon>
-            <small>
-              <b>'Name'</b>
-            </small>
-          </Button>
-        </Row>
-      ),
-    },
-  ];
-
-  useEffect(() => {
-    if (doneAdd || doneEdit) {
-      _toggle({ type: "CLOSE" }, dispatch);
-    }
-  }, [doneAdd, doneEdit]);
-
-  const okDelete = (id) => {
-    deleteRestaurant(id);
-  };
+const HomePage = () => {
   return (
-    <Card className="mt-2 p-2 backgroundd">
-      <CommonModals
-        size={state.size}
-        data={state.data}
-        openModal={state.openModal}
-        component={state.Component}
-        toggle={_toggle}
-        dispatch={dispatch}
-        title={state.title}
-      />
-      <Col align="right" className="newButton">
-        <Button
-          onClick={() =>
-            _toggle(
-              {
-                type: "ADD",
-                Component: RestaurantForm,
-                submit: addRestaurant,
-                title: "New Restaurant",
-                size: "md",
-              },
-              dispatch
-            )
-          }
-          size="sm"
-        >
-          Add New Restaurant
-        </Button>
-      </Col>
-      <CustomTable title="Restaurants" columns={columns} data={restaurants} />
-    </Card>
+    <div className="homePageContainer">
+      <CardHeader className="header">
+        <h3>Your Restaurants</h3>
+      </CardHeader>
+      <Row>
+        {Sections.map((section, index) => (
+          <Col index={index} md={4} sm={6} xs={12}>
+            <Link
+              to={{ pathname: section.route }}
+              style={{
+                textDecoration: "none",
+              }}
+            >
+              <Card className="card">
+                <MdGetApp size={80} />
+                <div>
+                  <CardHeader>Restaurant Name Goes here</CardHeader>
+                  <CardSubtitle className="mt-3 text-dark">
+                    {section.description}
+                  </CardSubtitle>
+                </div>
+              </Card>
+            </Link>
+          </Col>
+        ))}
+      </Row>
+    </div>
   );
 };
 
-export default RestaurantManagement;
+export default HomePage;
