@@ -1,4 +1,5 @@
 import React from "react";
+import { MdHome } from "react-icons/md";
 import { Link } from "react-router-dom";
 import {
   Button,
@@ -9,13 +10,12 @@ import {
   FormGroup,
   Input,
   Label,
-  Col
+  Col,
 } from "reactstrap";
 import routes from "../../config/routes";
-import { MdHome } from "react-icons/md";
 import Logo from "../../assets/Logo/Logo_Primary.png";
 
-const SignIn = () => {
+const SignUp = () => {
   return (
     <div className="authContainer">
       <Card className="authCard">
@@ -24,7 +24,7 @@ const SignIn = () => {
         </Link>
         <CardHeader align="center">
           <img height="50" width="50" alt="" src={Logo} />
-          <h5>Sign In</h5>
+          <h5>Sign Up</h5>
         </CardHeader>
         <CardBody>
           <FormGroup>
@@ -35,19 +35,21 @@ const SignIn = () => {
             <Label>Password</Label>
             <Input placeholder="Password" />
           </FormGroup>
+          <FormGroup>
+            <Label>Confirm Password</Label>
+            <Input placeholder="Confirm Password" />
+          </FormGroup>
         </CardBody>
         <CardFooter align="center">
-          <Link to={{ pathname: routes.homePage }}>
-            <Button outline>Sign In</Button>
-          </Link>
+          <Button outline>Sign Up</Button>
         </CardFooter>
         <Col align="right">
-          <Link to={{ pathname: routes.signUp }}>
-            <small>Don't have an Account?</small>
+          <Link to={{ pathname: routes.signIn }}>
+            <small>Already have an Account?</small>
           </Link>
         </Col>
       </Card>
     </div>
   );
 };
-export default SignIn;
+export default SignUp;

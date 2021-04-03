@@ -1,0 +1,21 @@
+.authContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  align-self: center;
+  background: $primary;
+  height: 100vh;
+  color: $dark;
+  .authCard {
+    box-shadow: 7px 7px 10px darken($color: rgb(53, 53, 53), $amount: 2);
+
+    min-width: 25%;
+    padding: 1%;
+    small {
+      font-weight: 300;
+      margin-top: 400px;
+    }
+  }
+}
