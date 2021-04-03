@@ -1,15 +1,13 @@
 import React from "react";
-import { Row, Col, Card, CardHeader, CardSubtitle } from "reactstrap";
 import {
   MdGetApp,
-  MdList,
   MdPeople,
   MdRestaurant,
   MdRestaurantMenu,
-  MdStar,
 } from "react-icons/md";
-import routes from "../../config/routes";
 import { Link } from "react-router-dom";
+import { Card, CardHeader, CardSubtitle, Col, Row } from "reactstrap";
+import routes from "../../config/routes";
 
 const Sections = [
   {
@@ -37,20 +35,6 @@ const Sections = [
     label: "Foods",
     icon: <MdGetApp color="text-primary" size={80} />,
     route: routes.foods,
-    description:
-      "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Doloremque quos reprehenderit ipsa suscipit nemo! Voluptatum a libero quaerat ipsa nulla in doloremque accusantium id eius, ea placeat perspiciatis fugiat praesentium.",
-  },
-  {
-    label: "Orders",
-    icon: <MdList color="text-primary" size={80} />,
-    route: routes.orders,
-    description:
-      "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Doloremque quos reprehenderit ipsa suscipit nemo! Voluptatum a libero quaerat ipsa nulla in doloremque accusantium id eius, ea placeat perspiciatis fugiat praesentium.",
-  },
-  {
-    label: "Feedbacks",
-    icon: <MdStar color="text-primary" size={80} />,
-    route: routes.feedbacks,
     description:
       "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Doloremque quos reprehenderit ipsa suscipit nemo! Voluptatum a libero quaerat ipsa nulla in doloremque accusantium id eius, ea placeat perspiciatis fugiat praesentium.",
   },

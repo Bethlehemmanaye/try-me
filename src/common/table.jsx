@@ -1,16 +1,15 @@
+import { MainContext } from "context/Main/";
 import React, { useContext, useEffect } from "react";
-import TableHeader from "./tableHeader";
-import TableBody from "./tableBody";
-import TableFooter from "./TableFooter";
+import { connect } from "react-redux";
 import {
-  Table as ReactstrapTable,
-  CardHeader,
   Card,
   CardFooter,
+  CardHeader,
+  Table as ReactstrapTable,
 } from "reactstrap";
-import { MainContext } from "context/Main/";
-import { connect } from "react-redux";
-import Logo from "../assets/Logo/Logo_Primary.png";
+import TableBody from "./tableBody";
+import TableFooter from "./TableFooter";
+import TableHeader from "./tableHeader";
 
 const Table = ({ columns, data, title, state, getLoading }) => {
   // let objectSet = {};

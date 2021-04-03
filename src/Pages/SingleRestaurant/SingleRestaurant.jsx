@@ -1,3 +1,7 @@
+import classnames from "classnames";
+import Feedbacks from "pages/Feedbacks/Feedbacks";
+import Foods from "pages/Foods/Foods";
+import OrdersManagement from "pages/Orders/Orders";
 import React, { useState } from "react";
 import {
   Button,
@@ -9,20 +13,14 @@ import {
   Col,
   Input,
   Label,
-  Row,
-  TabContent,
-  TabPane,
   Nav,
   NavItem,
   NavLink,
-  CardTitle,
-  CardText,
+  Row,
+  TabContent,
+  TabPane,
 } from "reactstrap";
-import classnames from "classnames";
 import Image from "../../assets/Nunu.jpg";
-import OrdersManagement from "pages/Orders/Orders";
-import Foods from "pages/Foods/Foods";
-import Feedbacks from "pages/Feedbacks/Feedbacks";
 
 const SingleRestaurants = () => {
   const [activeTab, setActiveTab] = useState("1");
