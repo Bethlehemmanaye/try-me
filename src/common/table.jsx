@@ -32,7 +32,6 @@ const Table = ({ columns, data, title, state, getLoading }) => {
     <Card className="m-2 p-3">
       <CardHeader className="cardHeader">
         <div>{"" + title ? title : ""}</div>
-        <img width="30" height="30" src={Logo} alt="" />
       </CardHeader>
       <ReactstrapTable hover borderless>
         <TableHeader columns={columns} />

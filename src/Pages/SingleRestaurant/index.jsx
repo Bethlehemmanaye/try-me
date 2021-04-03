@@ -1,9 +1,10 @@
 import React from "react";
+import SingleRestaurants from "./SingleRestaurant";
 
 const Loader = () => {
   return (
     <div>
-      <h1>Index</h1>
+      <SingleRestaurants />
     </div>
   );
 };
