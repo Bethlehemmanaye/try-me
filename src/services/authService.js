@@ -9,8 +9,10 @@ export async function login(response) {
   localStorage.setItem(tokenKey, token);
   localStorage.setItem(userKey, JSON.stringify(user));
 }
-export function loginWithJwt(jwt) {
-  localStorage.setItem(tokenKey, jwt);
+export function loginWithJwt(response) {
+  const { token, user } = response;
+  localStorage.setItem(tokenKey, token);
+  localStorage.setItem(userKey, JSON.stringify(user));
 }
 export function logout() {
   localStorage.removeItem(tokenKey);
@@ -38,5 +40,5 @@ export default {
   getCurrentUser,
   loginWithJwt,
   getJwt,
-  updateCurrentUser,
+  updateCurrentUser
 };

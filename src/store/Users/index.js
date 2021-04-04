@@ -1,16 +1,16 @@
 import StateArrayModel from "wrappers/StateModels/StateArrayModel";
 
-const Users = new StateArrayModel({
-  stateName: "users",
+const User = new StateArrayModel({
+  stateName: "user"
 });
-Users.setURL("/users");
+User.setURL("/users");
 
-Users.createSlice();
+User.createSlice();
 
-export const { stateName, reducer } = Users.getEntity();
-export const { getLoading } = Users;
+export const { stateName, reducer } = User.getEntity();
+export const { getLoading } = User;
 
-Users.enableResults({ fetchEnabled: false });
+User.enableResults({ fetchEnabled: false });
 
 export const {
   selectAddStatus,
@@ -18,9 +18,9 @@ export const {
   selectEditStatus,
   selectPatchStatus,
   selectDeleteStatus,
-  selectData,
-} = Users.getSelectors();
+  selectData
+} = User.getSelectors();
 
-export const { Add, Fetch, Edit, Patch, Remove } = Users.getAPIHandles();
+export const { Add, Fetch, Edit, Patch, Remove } = User.getAPIHandles();
 
-export { selectData as selectUserss };
+export { selectData as selectUsers };
