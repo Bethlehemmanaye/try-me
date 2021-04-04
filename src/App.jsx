@@ -11,6 +11,7 @@ import SignUp from "./pages/Auth/SignUp";
 import configureStore from "./store/configureStore";
 import { load } from "./autoload";
 import { ToastContainer, Zoom } from "react-toastify";
+import { withAuthentication } from "pages/Session";
 
 const HomePage = React.lazy(() => import("./pages/HomePage"));
 const Restaurants = React.lazy(() => import("./pages/Restaurants"));
@@ -33,16 +34,12 @@ function App() {
     <Provider store={store}>
       <ToastContainer
         position="top-right"
-        autoClose={100}
+        autoClose={5000}
         hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        transition={Zoom}
-        rtl={false}
-        pauseOnFocusLoss
-        closeButton={false}
-        draggable
-        pauseOnHover
+        closeOnClick={true}
+        pauseOnHover={true}
+        draggable={true}
+        progress={undefined}
       />
       <BrowserRouter basename={getBasename()}>
         <Switch>
@@ -97,4 +94,4 @@ function App() {
   );
 }
 
-export default App;
+export default withAuthentication(App);

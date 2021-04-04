@@ -1,0 +1,19 @@
+.singleRestaurantContainer {
+  padding: 1%;
+  .singleItemCard {
+    opacity: 0.95;
+    background: $background;
+    img {
+      height: 300px;
+      object-fit: cover;
+    }
+    .header {
+      font-size: large;
+      background: none;
+      font-weight: bolder;
+    }
+    .footer {
+      background: none;
+    }
+  }
+}
