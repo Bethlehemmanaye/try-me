@@ -37,7 +37,7 @@ const SingleRestaurants = () => {
           </Col>
           <Col md={6} xs={12} sm={12}>
             <CardHeader className="header">
-              Restaurant Name Goes Here
+              Restaurant Name Goes Heree
             </CardHeader>
             <CardBody>
               <Row>
