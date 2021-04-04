@@ -18,14 +18,19 @@ import {
   NavLink,
   Row,
   TabContent,
-  TabPane,
+  TabPane
 } from "reactstrap";
 import Image from "../../assets/Nunu.jpg";
-
-const SingleRestaurants = () => {
+import RestaurantForm from "./RestaurantsForm";
+const SingleRestaurants = ({
+  restaurants,
+  selectedRestaurant,
+  editRestaurant,
+  doneEdit
+}) => {
   const [activeTab, setActiveTab] = useState("1");
 
-  const toggle = (tab) => {
+  const toggle = tab => {
     if (activeTab !== tab) setActiveTab(tab);
   };
   return (
@@ -33,34 +38,18 @@ const SingleRestaurants = () => {
       <Card className="singleItemCard">
         <Row>
           <Col md={6} xs={12} sm={12}>
-            <CardImg src={Image} />
+            <CardImg src={selectedRestaurant.image} />
           </Col>
           <Col md={6} xs={12} sm={12}>
             <CardHeader className="header">
-              Restaurant Name Goes Heree
+              {selectedRestaurant.title}
             </CardHeader>
             <CardBody>
-              <Row>
-                <Col md={6} sm={12} xs={12}>
-                  <Label>Name</Label>
-                  <Input placeholder="Restaurant Name" />
-                </Col>
-                <Col md={6} sm={12} xs={12}>
-                  <Label>Location</Label>
-                  <Input placeholder="Location" />
-                </Col>
-                <Col className="mt-3" md={12} sm={12} xs={12}>
-                  <Label>Description</Label>
-                  <Input
-                    type="textarea"
-                    placeholder="Description about your Restaurant"
-                  />
-                </Col>
-              </Row>
+              <RestaurantForm
+                data={selectedRestaurant}
+                submit={editRestaurant}
+              />
             </CardBody>
-            <CardFooter className="footer" align="center">
-              <Button>Save</Button>
-            </CardFooter>
           </Col>
         </Row>
         <hr />

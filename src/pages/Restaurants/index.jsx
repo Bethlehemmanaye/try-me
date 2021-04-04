@@ -11,7 +11,7 @@ import {
   selectRestaurants,
   selectDeleteStatus,
   selectEditStatus,
-  selectFetchStatus,
+  selectFetchStatus
 } from "store/Restaurants";
 import RestaurantManagment from "./Restaurants";
 
@@ -24,7 +24,7 @@ const Loader = ({
   editRestaurant,
   deleteStatus,
   deleteRestaurant,
-  restaurants,
+  restaurants
 }) => {
   const [data, setData] = useState([]);
   const [fetchLock, setFetchLock] = useState(true);
@@ -79,17 +79,17 @@ const Loader = ({
     }
   }, [deleteStatus, setDeleteLock, deleteLock]);
 
-  const _addRestaurant = (data) => {
+  const _addRestaurant = data => {
     setAddLock(false);
     addRestaurant(data);
   };
 
-  const _editRestaurant = (data) => {
+  const _editRestaurant = data => {
     setEditLock(false);
     editRestaurant(data);
   };
 
-  const _deleteRestaurant = (id) => {
+  const _deleteRestaurant = id => {
     setDeleteLock(false);
     deleteRestaurant(id);
   };
@@ -112,14 +112,17 @@ const mapStateToProps = (state, ownProps) => ({
   addStatus: selectAddStatus(state),
   editStatus: selectEditStatus(state),
   deleteStatus: selectDeleteStatus(state),
-  restaurants: selectRestaurants(state),
+  restaurants: selectRestaurants(state)
 });
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
   fetchRestaurants: () => dispatch(Fetch()),
-  addRestaurant: (data) => dispatch(Add(data)),
-  editRestaurant: (data) => dispatch(Edit(data)),
-  deleteRestaurant: (id) => dispatch(Remove(id)),
+  addRestaurant: data => dispatch(Add(data)),
+  editRestaurant: data => dispatch(Edit(data)),
+  deleteRestaurant: id => dispatch(Remove(id))
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Loader);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Loader);

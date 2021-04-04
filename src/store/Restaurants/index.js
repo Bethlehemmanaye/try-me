@@ -1,7 +1,7 @@
 import StateArrayModel from "wrappers/StateModels/StateArrayModel";
 
 const Restaurant = new StateArrayModel({
-  stateName: "restaurants",
+  stateName: "restaurants"
 });
 Restaurant.setURL("/restaurants");
 
@@ -18,7 +18,7 @@ export const {
   selectEditStatus,
   selectPatchStatus,
   selectDeleteStatus,
-  selectData,
+  selectData
 } = Restaurant.getSelectors();
 
 export const { Add, Fetch, Edit, Patch, Remove } = Restaurant.getAPIHandles();
