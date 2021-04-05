@@ -8,5 +8,6 @@
   "posting_date",
   "employment_start_date",
   "employment_end_date",
-  "birth_date"
+  "birth_date",
+  "created_at"
 ]

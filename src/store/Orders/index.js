@@ -1,7 +1,7 @@
 import StateArrayModel from "wrappers/StateModels/StateArrayModel";
 
 const Order = new StateArrayModel({
-  stateName: "orders",
+  stateName: "orders"
 });
 Order.setURL("/orders");
 
@@ -18,7 +18,7 @@ export const {
   selectEditStatus,
   selectPatchStatus,
   selectDeleteStatus,
-  selectData,
+  selectData
 } = Order.getSelectors();
 
 export const { Add, Fetch, Edit, Patch, Remove } = Order.getAPIHandles();

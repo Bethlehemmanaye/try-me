@@ -5,8 +5,10 @@ import React, { useEffect, useReducer } from "react";
 import { MdDelete, MdEdit, MdRemoveRedEye } from "react-icons/md";
 import { Button, Card, Col, Row } from "reactstrap";
 import OrdersForm from "./OrdersForm";
+import statusTypes from "config/statusTypes";
+import { IoIosSend } from "react-icons/io";
 
-const OrdersManagement = ({
+const Orders = ({
   orders,
   doneAdd,
   doneEdit,
@@ -14,18 +16,31 @@ const OrdersManagement = ({
   editOrder,
   deleteOrder,
   doneDelete,
+  options
 }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
+
+  const getOrderFormData = (order, status) => {
+    return {
+      _id: order._id,
+      status,
+      quantity: order.quantity,
+      remarks: order.remarks,
+      foodId: order.food._id,
+      customerId: order.customer._id
+    };
+  };
   const columns = [
     { path: "status", label: "Status" },
     { path: "customer.name", label: "Customer" },
-    { path: "food.name", label: "Food Name" },
+    { path: "food.title", label: "Food Name" },
     { path: "quantity", label: "Quantity" },
     { path: "remarks", label: "Remarks" },
+    { path: "created_at", label: "Date" },
     {
       key: "view",
       label: "Actions",
-      content: (orders) => (
+      content: orders => (
         <Row>
           <Button
             className="buttons"
@@ -38,6 +53,7 @@ const OrdersManagement = ({
                   Component: OrdersForm,
                   data: orders,
                   title: "View Orders",
+                  options
                 },
                 dispatch
               );
@@ -63,6 +79,7 @@ const OrdersManagement = ({
                   submit: editOrder,
                   data: orders,
                   title: "Edit Orders",
+                  options
                 },
                 dispatch
               );
@@ -75,6 +92,7 @@ const OrdersManagement = ({
               <b>Edit</b>
             </small>
           </Button>
+
           <Button
             className="buttons"
             size="sm"
@@ -87,8 +105,8 @@ const OrdersManagement = ({
                     okCallback: okDelete,
                     title: "Are you sure?",
                     id: orders._id,
-                    message: "",
-                  },
+                    message: ""
+                  }
                 },
                 dispatch
               );
@@ -98,12 +116,91 @@ const OrdersManagement = ({
               <MdDelete />
             </icon>
             <small>
-              <b>'Name'</b>
+              <b>Delete</b>
             </small>
           </Button>
+
+          {orders.status === statusTypes.OPEN ? (
+            <Button
+              className="buttons"
+              size="sm"
+              color="success"
+              onClick={() =>
+                editOrder(getOrderFormData(orders, statusTypes.CLOSED))
+              }
+            >
+              <icon>
+                <IoIosSend />
+              </icon>
+              <small>
+                <b>Close</b>
+              </small>
+            </Button>
+          ) : (
+            <></>
+          )}
+          {orders.status === statusTypes.OPEN ? (
+            <Button
+              className="buttons"
+              size="sm"
+              color="success"
+              onClick={() =>
+                editOrder(getOrderFormData(orders, statusTypes.ORDER_ACCEPTED))
+              }
+            >
+              <icon>
+                <IoIosSend />
+              </icon>
+              <small>
+                <b>Accept</b>
+              </small>
+            </Button>
+          ) : (
+            <></>
+          )}
+          {orders.status === statusTypes.ORDER_ACCEPTED ? (
+            <Button
+              className="buttons"
+              size="sm"
+              color="success"
+              onClick={() =>
+                editOrder(
+                  getOrderFormData(orders, statusTypes.OUT_FOR_DELIVERY)
+                )
+              }
+            >
+              <icon>
+                <IoIosSend />
+              </icon>
+              <small>
+                <b>Out For Delivery</b>
+              </small>
+            </Button>
+          ) : (
+            <></>
+          )}
+          {orders.status === statusTypes.OUT_FOR_DELIVERY ? (
+            <Button
+              className="buttons"
+              size="sm"
+              color="success"
+              onClick={() =>
+                editOrder(getOrderFormData(orders, statusTypes.DELIVERED))
+              }
+            >
+              <icon>
+                <IoIosSend />
+              </icon>
+              <small>
+                <b>Deliver</b>
+              </small>
+            </Button>
+          ) : (
+            <></>
+          )}
         </Row>
-      ),
-    },
+      )
+    }
   ];
 
   useEffect(() => {
@@ -112,7 +209,7 @@ const OrdersManagement = ({
     }
   }, [doneAdd, doneEdit]);
 
-  const okDelete = (id) => {
+  const okDelete = id => {
     deleteOrder(id);
   };
   return (
@@ -136,6 +233,7 @@ const OrdersManagement = ({
                 submit: addOrder,
                 title: "New Orders",
                 size: "md",
+                options
               },
               dispatch
             )
@@ -145,9 +243,19 @@ const OrdersManagement = ({
           Add New Order
         </Button>
       </Col>
-      <CustomTable title="Orders" columns={columns} data={orders} />
+      <CustomTable
+        title="Orders"
+        columns={columns}
+        data={orders.map(order => ({
+          ...order,
+          customer: {
+            ...order.customer,
+            name: order.customer.first_name + " " + order.customer.last_name
+          }
+        }))}
+      />
     </Card>
   );
 };
 
-export default OrdersManagement;
+export default Orders;

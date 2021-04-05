@@ -8,14 +8,41 @@ class UserAdd extends ParentForm {
     super(props);
     this.initialState = {
       data: {
-        name: "",
+        status: "open",
+        quantity: "",
+        remarks: "",
+        foodId: "",
+        customerName: "",
+        customerId: this.props.options.authUser._id
       },
-      errors: {},
+      errors: {}
     };
     this.state = this.initialState;
     this.schema = {
-      _id: Joi.string().allow("").optional(),
-      name: Joi.string(),
+      _id: Joi.string()
+        .allow("")
+        .optional(),
+      status: Joi.string()
+        .valid([
+          "open",
+          "closed",
+          "order accepted",
+          "out for delivery",
+          "deliverd"
+        ])
+        .allow("")
+        .optional(),
+      quantity: Joi.number()
+        .allow("")
+        .optional(),
+      remarks: Joi.string()
+        .allow("")
+        .optional(),
+      customerName: Joi.string()
+        .allow("")
+        .optional(),
+      foodId: Joi.string().required(),
+      customerId: Joi.string().required()
     };
   }
 
@@ -24,9 +51,14 @@ class UserAdd extends ParentForm {
       ...this.state,
       data: {
         _id: data._id ? data._id : "",
-        name: data.name,
+        status: data.status,
+        quantity: data.quantity,
+        remarks: data.remarks,
+        foodId: data.food._id,
+        customerId: data.customer._id,
+        customerName: data.customer.first_name + " " + data.customer.last_name
       },
-      lockUpdate: true,
+      lockUpdate: true
     };
     this.setState(updatedState);
   }
@@ -42,48 +74,66 @@ class UserAdd extends ParentForm {
 
   doSubmit() {
     const { data } = this.state;
-
-    this.props.submit(data);
+    const body = { ...data };
+    delete body.customerName;
+    this.props.submit(body);
   }
 
   render() {
+    const { foods } = this.props.options;
+    const { isView } = this.props;
     return (
       <Card className="border-0 bg-background">
         <CardBody className="bg-background ">
           <Form onSubmit={this.handleSubmit}>
             <Row>
-              <Col md={6} sm={6} xs={12}>
-                {this.renderSelect({
-                  name: "status",
-                  label: "Status",
-                  options: ["Active", "Detained", "Blah blah"],
-                })}
-              </Col>
-              <Col md={6} sm={6} xs={12}>
-                {this.renderInput({
-                  name: "customer",
-                  label: "Customer",
-                })}
-              </Col>
+              {isView && (
+                <Col md={4} sm={6} xs={12}>
+                  {this.renderSelect({
+                    name: "status",
+                    label: "Status",
+                    options: [
+                      "open",
+                      "closed",
+                      "order accepted",
+                      "out for delivery",
+                      "deliverd"
+                    ]
+                  })}
+                </Col>
+              )}
+              {isView && (
+                <Col md={4} sm={6} xs={12}>
+                  {this.renderInput({
+                    name: "customerName",
+                    label: "Customer"
+                  })}
+                </Col>
+              )}
 
-              <Col md={6} sm={6} xs={12}>
-                {this.renderInput({
-                  name: "food",
+              <Col md={4} sm={6} xs={12}>
+                {this.renderSelect({
+                  name: "foodId",
                   label: "Food Name",
+                  options: foods.map(food => ({
+                    name: food.title,
+                    _id: food._id
+                  })),
+                  optionsFrom: "server"
                 })}
               </Col>
-              <Col md={6} sm={6} xs={12}>
+              <Col md={4} sm={6} xs={12}>
                 {this.renderInput({
                   name: "quantity",
-                  label: "Category",
-                  type: "number",
+                  label: "Quantity",
+                  type: "number"
                 })}
               </Col>
               <Col md={12} sm={12} xs={12}>
                 {this.renderInput({
                   name: "remarks",
                   label: "Remarks",
-                  type: "textarea",
+                  type: "textarea"
                 })}
               </Col>
             </Row>

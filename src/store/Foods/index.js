@@ -1,7 +1,7 @@
 import StateArrayModel from "wrappers/StateModels/StateArrayModel";
 
 const Food = new StateArrayModel({
-  stateName: "foods",
+  stateName: "foods"
 });
 Food.setURL("/foods");
 
@@ -18,7 +18,7 @@ export const {
   selectEditStatus,
   selectPatchStatus,
   selectDeleteStatus,
-  selectData,
+  selectData
 } = Food.getSelectors();
 
 export const { Add, Fetch, Edit, Patch, Remove } = Food.getAPIHandles();

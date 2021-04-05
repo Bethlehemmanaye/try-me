@@ -1,7 +1,7 @@
 import classnames from "classnames";
 import Feedbacks from "pages/Feedbacks/Feedbacks";
 import Foods from "pages/Foods/Foods";
-import OrdersManagement from "pages/Orders/Orders";
+import OrdersManagement from "pages/Orders/";
 import React, { useState } from "react";
 import {
   Button,
@@ -38,11 +38,11 @@ const SingleRestaurants = ({
       <Card className="singleItemCard">
         <Row>
           <Col md={6} xs={12} sm={12}>
-            <CardImg src={selectedRestaurant.image} />
+            <CardImg src={selectedRestaurant && selectedRestaurant.image} />
           </Col>
           <Col md={6} xs={12} sm={12}>
             <CardHeader className="header">
-              {selectedRestaurant.title}
+              {selectedRestaurant && selectedRestaurant.title}
             </CardHeader>
             <CardBody>
               <RestaurantForm
@@ -97,13 +97,15 @@ const SingleRestaurants = ({
           </Nav>
           <TabContent activeTab={activeTab}>
             <TabPane tabId="1">
-              <OrdersManagement />
+              {activeTab === "1" ? (
+                <OrdersManagement selectedRestaurant={selectedRestaurant} />
+              ) : null}
             </TabPane>
-            <TabPane tabId="2">
-              <Foods />
+            <TabPane tabId="2" selectedRestaurant={selectedRestaurant}>
+              {activeTab === "2" ? <Foods /> : null}
             </TabPane>
-            <TabPane tabId="3">
-              <Feedbacks />
+            <TabPane tabId="3" selectedRestaurant={selectedRestaurant}>
+              {activeTab === "3" ? <Feedbacks /> : null}
             </TabPane>
           </TabContent>
         </div>

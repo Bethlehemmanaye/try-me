@@ -1,5 +1,5 @@
 import { reduxStatus } from "constants/reduxStatus";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { connect } from "react-redux";
 import { toast } from "react-toastify";
 import {
@@ -11,8 +11,13 @@ import {
   selectOrders,
   selectDeleteStatus,
   selectEditStatus,
-  selectFetchStatus,
+  selectFetchStatus
 } from "store/Orders";
+import { AuthUserContext } from "pages/Session";
+
+import { selectFoods } from "store/Foods";
+import { selectCategories } from "store/Categories";
+
 import Orders from "./Orders";
 
 const Loader = ({
@@ -25,6 +30,8 @@ const Loader = ({
   deleteStatus,
   deleteOrder,
   orders,
+  foods,
+  categories
 }) => {
   const [data, setData] = useState([]);
   const [fetchLock, setFetchLock] = useState(true);
@@ -60,7 +67,8 @@ const Loader = ({
   }, [addStatus, setAddLock, addLock]);
 
   useEffect(() => {
-    const { status } = editStatus;
+    const { status, response } = editStatus;
+    console.log(response,"response")
     if (status === reduxStatus.failure && !editLock) {
       setEditLock(true);
     } else if (status === reduxStatus.success && !editLock) {
@@ -79,17 +87,17 @@ const Loader = ({
     }
   }, [deleteStatus, setDeleteLock, deleteLock]);
 
-  const _addOrder = (data) => {
+  const _addOrder = data => {
     setAddLock(false);
     addOrder(data);
   };
 
-  const _editOrder = (data) => {
+  const _editOrder = data => {
     setEditLock(false);
     editOrder(data);
   };
 
-  const _deleteOrder = (id) => {
+  const _deleteOrder = id => {
     setDeleteLock(false);
     deleteOrder(id);
   };
@@ -102,6 +110,7 @@ const Loader = ({
       doneDelete={deleteStatus.status === reduxStatus.success && !deleteLock}
       deleteOrder={_deleteOrder}
       orders={data}
+      options={{ foods, authUser: useContext(AuthUserContext), categories }}
     />
   );
 };
@@ -113,13 +122,18 @@ const mapStateToProps = (state, ownProps) => ({
   editStatus: selectEditStatus(state),
   deleteStatus: selectDeleteStatus(state),
   orders: selectOrders(state),
+  foods: selectFoods(state),
+  categories: selectCategories(state)
 });
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
   fetchOrders: () => dispatch(Fetch()),
-  addOrder: (data) => dispatch(Add(data)),
-  editOrder: (data) => dispatch(Edit(data)),
-  deleteOrder: (id) => dispatch(Remove(id)),
+  addOrder: data => dispatch(Add(data)),
+  editOrder: data => dispatch(Edit(data)),
+  deleteOrder: id => dispatch(Remove(id))
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Loader);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Loader);

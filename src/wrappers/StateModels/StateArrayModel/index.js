@@ -297,7 +297,7 @@ export default class StateArrayModel {
 
         successPatch(state, action) {
           const index = state.data.findIndex(
-            element => element.id === action.payload.id
+            element => element._id === action.payload._id
           );
           if (index >= 0) {
             if (patchEnabled) {
@@ -788,7 +788,7 @@ export default class StateArrayModel {
         };
         if (data) {
           this.patchRequest.data = data;
-          this.patchRequest.url = this.requestOptions.url + "/" + data.id;
+          this.patchRequest.url = this.requestOptions.url + "/" + data._id;
         }
         this.setPatch({ ...this.patchRequest });
         return this.Patch();

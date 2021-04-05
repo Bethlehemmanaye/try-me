@@ -20,6 +20,10 @@ import {
 } from "./RestaurantOwners";
 
 import { stateName as auth, reducer as authReducer } from "./Auth";
+import {
+  stateName as category,
+  reducer as categoryReducer
+} from "./Categories";
 
 export default combineReducers({
   [restaurants]: RestaurantsReducer,
@@ -29,5 +33,6 @@ export default combineReducers({
   [customers]: CustomersReducer,
   [feedbacks]: FeedbacksReducer,
   [restaurant_owners]: RestaurantOwners,
-  [auth]: authReducer
+  [auth]: authReducer,
+  [category]: categoryReducer
 });
