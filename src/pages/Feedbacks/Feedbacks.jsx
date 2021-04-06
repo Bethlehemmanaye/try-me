@@ -14,16 +14,17 @@ const Feedbacks = ({
   editFeedback,
   deleteFeedback,
   doneDelete,
+  options
 }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const columns = [
-    { path: "customer", label: "Customer Name" },
-    { path: "restaurant", label: "Restaurant" },
+    { path: "customer.first_name", label: "Customer Name" },
+    { path: "restaurant.title", label: "Restaurant" },
     { path: "content", label: "Content" },
     {
       key: "view",
       label: "Actions",
-      content: (feedbacks) => (
+      content: feedbacks => (
         <Row>
           <Button
             className="buttons"
@@ -36,6 +37,7 @@ const Feedbacks = ({
                   Component: FeedbacksForm,
                   data: feedbacks,
                   title: "View Feedbacks",
+                  options
                 },
                 dispatch
               );
@@ -61,6 +63,7 @@ const Feedbacks = ({
                   submit: editFeedback,
                   data: feedbacks,
                   title: "Edit Feedbacks",
+                  options
                 },
                 dispatch
               );
@@ -85,8 +88,8 @@ const Feedbacks = ({
                     okCallback: okDelete,
                     title: "Are you sure?",
                     id: feedbacks._id,
-                    message: "",
-                  },
+                    message: ""
+                  }
                 },
                 dispatch
               );
@@ -100,8 +103,8 @@ const Feedbacks = ({
             </small>
           </Button>
         </Row>
-      ),
-    },
+      )
+    }
   ];
 
   useEffect(() => {
@@ -110,7 +113,7 @@ const Feedbacks = ({
     }
   }, [doneAdd, doneEdit]);
 
-  const okDelete = (id) => {
+  const okDelete = id => {
     deleteFeedback(id);
   };
   return (
@@ -134,6 +137,7 @@ const Feedbacks = ({
                 submit: addFeedback,
                 title: "New Feedbacks",
                 size: "md",
+                options
               },
               dispatch
             )

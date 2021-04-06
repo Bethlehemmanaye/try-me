@@ -1,5 +1,5 @@
 import { reduxStatus } from "constants/reduxStatus";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { connect } from "react-redux";
 import { toast } from "react-toastify";
 import {
@@ -11,9 +11,10 @@ import {
   selectFeedbacks,
   selectDeleteStatus,
   selectEditStatus,
-  selectFetchStatus,
+  selectFetchStatus
 } from "store/Feedbacks";
 import Feedbacks from "./Feedbacks";
+import { AuthUserContext } from "pages/Session";
 
 const Loader = ({
   fetchStatus,
@@ -25,6 +26,7 @@ const Loader = ({
   deleteStatus,
   deleteFeedback,
   feedbacks,
+  selectedRestaurant
 }) => {
   const [data, setData] = useState([]);
   const [fetchLock, setFetchLock] = useState(true);
@@ -44,7 +46,7 @@ const Loader = ({
   useEffect(() => {
     const { status } = fetchStatus;
     if (status === reduxStatus.failure && !fetchLock) {
-      toast.error("Failed fetching Restaurant Owners");
+      toast.error("Failed fetching Feedbackss");
       setFetchLock(true);
     }
   }, [fetchStatus, setFetchLock, fetchLock]);
@@ -54,7 +56,7 @@ const Loader = ({
     if (status === reduxStatus.failure && !addLock) {
       setAddLock(true);
     } else if (status === reduxStatus.success && !addLock) {
-      toast.success("Added Restaurant Owner");
+      toast.success("Added Feedbacks");
       setAddLock(true);
     }
   }, [addStatus, setAddLock, addLock]);
@@ -64,7 +66,7 @@ const Loader = ({
     if (status === reduxStatus.failure && !editLock) {
       setEditLock(true);
     } else if (status === reduxStatus.success && !editLock) {
-      toast.success("Edited Restaurant Owner");
+      toast.success("Edited Feedbacks");
       setEditLock(true);
     }
   }, [editStatus, setEditLock, editLock]);
@@ -74,22 +76,22 @@ const Loader = ({
     if (status === reduxStatus.failure && !deleteLock) {
       setDeleteLock(true);
     } else if (status === reduxStatus.success && !deleteLock) {
-      toast.success("Deleted Restaurant Owner");
+      toast.success("Deleted Feedbacks");
       setDeleteLock(true);
     }
   }, [deleteStatus, setDeleteLock, deleteLock]);
 
-  const _addFeedback = (data) => {
+  const _addFeedback = data => {
     setAddLock(false);
     addFeedback(data);
   };
 
-  const _editFeedback = (data) => {
+  const _editFeedback = data => {
     setEditLock(false);
     editFeedback(data);
   };
 
-  const _deleteFeedback = (id) => {
+  const _deleteFeedback = id => {
     setDeleteLock(false);
     deleteFeedback(id);
   };
@@ -102,6 +104,7 @@ const Loader = ({
       doneDelete={deleteStatus.status === reduxStatus.success && !deleteLock}
       deleteFeedback={_deleteFeedback}
       feedbacks={data}
+      options={{ selectedRestaurant, authUser: useContext(AuthUserContext) }}
     />
   );
 };
@@ -112,14 +115,17 @@ const mapStateToProps = (state, ownProps) => ({
   addStatus: selectAddStatus(state),
   editStatus: selectEditStatus(state),
   deleteStatus: selectDeleteStatus(state),
-  feedbacks: selectFeedbacks(state),
+  feedbacks: selectFeedbacks(state)
 });
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
   fetchFeedbacks: () => dispatch(Fetch()),
-  addFeedback: (data) => dispatch(Add(data)),
-  editFeedback: (data) => dispatch(Edit(data)),
-  deleteFeedback: (id) => dispatch(Remove(id)),
+  addFeedback: data => dispatch(Add(data)),
+  editFeedback: data => dispatch(Edit(data)),
+  deleteFeedback: id => dispatch(Remove(id))
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Loader);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Loader);

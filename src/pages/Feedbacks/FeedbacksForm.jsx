@@ -8,14 +8,22 @@ class FeedbackForm extends ParentForm {
     super(props);
     this.initialState = {
       data: {
-        name: "",
+        content: "",
+        restaurantId: this.props.options.selectedRestaurant._id,
+        customerId: this.props.options.authUser._id
       },
-      errors: {},
+      errors: {}
     };
     this.state = this.initialState;
     this.schema = {
-      _id: Joi.string().allow("").optional(),
-      name: Joi.string(),
+      _id: Joi.string()
+        .allow("")
+        .optional(),
+      content: Joi.string()
+        .min(5)
+        .required(),
+      restaurantId: Joi.string().required(),
+      customerId: Joi.string().required()
     };
   }
 
@@ -24,9 +32,11 @@ class FeedbackForm extends ParentForm {
       ...this.state,
       data: {
         _id: data._id ? data._id : "",
-        name: data.name,
+        content: data.content,
+        restaurantId: data.restaurant._id,
+        customerId: data.customer._id
       },
-      lockUpdate: true,
+      lockUpdate: true
     };
     this.setState(updatedState);
   }
@@ -52,25 +62,11 @@ class FeedbackForm extends ParentForm {
         <CardBody className="bg-background ">
           <Form onSubmit={this.handleSubmit}>
             <Row>
-              <Col md={6} sm={6} xs={12}>
-                {this.renderSelect({
-                  name: "customer",
-                  label: "Customer Name",
-                  options: ["Customer One", "Customer Two"],
-                })}
-              </Col>
-              <Col md={6} sm={6} xs={12}>
-                {this.renderSelect({
-                  name: "restaurant",
-                  label: "Restaurant Name",
-                  options: ["Restaurant One", "Restaurant Two"],
-                })}
-              </Col>
               <Col md={12} sm={12} xs={12}>
                 {this.renderInput({
                   name: "content",
                   label: "Content",
-                  type: "textarea",
+                  type: "textarea"
                 })}
               </Col>
             </Row>
