@@ -14,19 +14,17 @@ const Foods = ({
   editFood,
   deleteFood,
   doneDelete,
+  options
 }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const columns = [
-    { path: "title", label: "Name" },
-    { path: "email", label: "Email" },
-    { path: "description", label: "Description" },
-    { path: "restaurant", label: "Restaurant" },
-    { path: "category", label: "Category" },
-    { path: "delivery_expectency", label: "Delivery Expectency Time" },
+    { path: "title", label: "Title" },
+    { path: "delivery_expectancy", label: "Delivery Expectancy" },
+    { path: "category.name", label: "Category" },
     {
       key: "view",
       label: "Actions",
-      content: (foods) => (
+      content: foods => (
         <Row>
           <Button
             className="buttons"
@@ -39,6 +37,7 @@ const Foods = ({
                   Component: FoodsForm,
                   data: foods,
                   title: "View Foods",
+                  options
                 },
                 dispatch
               );
@@ -64,6 +63,7 @@ const Foods = ({
                   submit: editFood,
                   data: foods,
                   title: "Edit Foods",
+                  options
                 },
                 dispatch
               );
@@ -88,8 +88,8 @@ const Foods = ({
                     okCallback: okDelete,
                     title: "Are you sure?",
                     id: foods._id,
-                    message: "",
-                  },
+                    message: ""
+                  }
                 },
                 dispatch
               );
@@ -103,8 +103,8 @@ const Foods = ({
             </small>
           </Button>
         </Row>
-      ),
-    },
+      )
+    }
   ];
 
   useEffect(() => {
@@ -113,7 +113,7 @@ const Foods = ({
     }
   }, [doneAdd, doneEdit]);
 
-  const okDelete = (id) => {
+  const okDelete = id => {
     deleteFood(id);
   };
   return (
@@ -137,6 +137,7 @@ const Foods = ({
                 submit: addFood,
                 title: "New Foods",
                 size: "md",
+                options
               },
               dispatch
             )

@@ -11,8 +11,10 @@ import {
   selectFoods,
   selectDeleteStatus,
   selectEditStatus,
-  selectFetchStatus,
+  selectFetchStatus
 } from "store/Foods";
+import { selectCategories } from "store/Categories";
+
 import Foods from "./Foods";
 
 const Loader = ({
@@ -24,7 +26,9 @@ const Loader = ({
   editFood,
   deleteStatus,
   deleteFood,
-  restaurantOwners,
+  foods,
+  categories,
+  selectedRestaurant
 }) => {
   const [data, setData] = useState([]);
   const [fetchLock, setFetchLock] = useState(true);
@@ -33,8 +37,8 @@ const Loader = ({
   const [deleteLock, setDeleteLock] = useState(true);
 
   useEffect(() => {
-    setData(restaurantOwners);
-  }, [restaurantOwners, setData]);
+    setData(foods);
+  }, [foods, setData]);
 
   useEffect(() => {
     setFetchLock(false);
@@ -79,17 +83,25 @@ const Loader = ({
     }
   }, [deleteStatus, setDeleteLock, deleteLock]);
 
-  const _addFood = (data) => {
+  const _addFood = data => {
     setAddLock(false);
-    addFood(data);
+    const formData = new FormData();
+    for (var key in data) {
+      formData.append(key, data[key]);
+    }
+    addFood(formData);
   };
 
-  const _editFood = (data) => {
+  const _editFood = data => {
     setEditLock(false);
-    editFood(data);
+    const formData = new FormData();
+    for (var key in data) {
+      formData.append(key, data[key]);
+    }
+    editFood(formData);
   };
 
-  const _deleteFood = (id) => {
+  const _deleteFood = id => {
     setDeleteLock(false);
     deleteFood(id);
   };
@@ -101,7 +113,8 @@ const Loader = ({
       editFood={_editFood}
       doneDelete={deleteStatus.status === reduxStatus.success && !deleteLock}
       deleteFood={_deleteFood}
-      restaurantOwners={data}
+      foods={data}
+      options={{ categories, selectedRestaurant }}
     />
   );
 };
@@ -112,14 +125,18 @@ const mapStateToProps = (state, ownProps) => ({
   addStatus: selectAddStatus(state),
   editStatus: selectEditStatus(state),
   deleteStatus: selectDeleteStatus(state),
-  restaurantOwners: selectFoods(state),
+  foods: selectFoods(state),
+  categories: selectCategories(state)
 });
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
   fetchFoods: () => dispatch(Fetch()),
-  addFood: (data) => dispatch(Add(data)),
-  editFood: (data) => dispatch(Edit(data)),
-  deleteFood: (id) => dispatch(Remove(id)),
+  addFood: data => dispatch(Add(data)),
+  editFood: data => dispatch(Edit(data)),
+  deleteFood: id => dispatch(Remove(id))
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Loader);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Loader);

@@ -1,6 +1,6 @@
 import classnames from "classnames";
-import Feedbacks from "pages/Feedbacks/Feedbacks";
-import Foods from "pages/Foods/Foods";
+import Feedbacks from "pages/Feedbacks";
+import Foods from "pages/Foods";
 import OrdersManagement from "pages/Orders/";
 import React, { useState } from "react";
 import {
@@ -101,11 +101,15 @@ const SingleRestaurants = ({
                 <OrdersManagement selectedRestaurant={selectedRestaurant} />
               ) : null}
             </TabPane>
-            <TabPane tabId="2" selectedRestaurant={selectedRestaurant}>
-              {activeTab === "2" ? <Foods /> : null}
+            <TabPane tabId="2">
+              {activeTab === "2" ? (
+                <Foods selectedRestaurant={selectedRestaurant} />
+              ) : null}
             </TabPane>
-            <TabPane tabId="3" selectedRestaurant={selectedRestaurant}>
-              {activeTab === "3" ? <Feedbacks /> : null}
+            <TabPane tabId="3">
+              {activeTab === "3" ? (
+                <Feedbacks selectedRestaurant={selectedRestaurant} />
+              ) : null}
             </TabPane>
           </TabContent>
         </div>
