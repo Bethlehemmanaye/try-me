@@ -25,10 +25,13 @@ import {
 import { Link } from "react-router-dom";
 import Logo from "../../assets/Logo/Logo_White.png";
 import AddRestaurant from "pages/AddRestaurant";
+import { AuthUserContext } from "pages/Session";
+import auth from "services/authService";
 
 const bem = bn.create("header");
 
 class Header extends React.Component {
+  static contextType = AuthUserContext;
   constructor(props) {
     super(props);
     this.state = {
@@ -65,6 +68,7 @@ class Header extends React.Component {
     if (this.props.scrolled) {
       drawerClasses = "bg-gradient-theme-right scrolledAppBar";
     }
+    let authUser = this.context;
 
     return (
       <>
@@ -145,22 +149,39 @@ class Header extends React.Component {
                   />
                 </NavLink>
               </NavItem>
-              <AddRestaurant />
-              <NavItem>
-                <NavLink>
-                  <Link to={{ pathname: routes.signUp }}>
-                    <RenderButton title="Sign Up" />
-                  </Link>
-                </NavLink>
-              </NavItem>
+              {authUser && <AddRestaurant />}
+              {!authUser && (
+                <>
+                  <NavItem>
+                    <NavLink>
+                      <Link to={{ pathname: routes.signUp }}>
+                        <RenderButton title="Sign Up" />
+                      </Link>
+                    </NavLink>
+                  </NavItem>
 
-              <NavItem>
-                <NavLink>
-                  <Link to={{ pathname: routes.signIn }}>
-                    <RenderButton title="Sign In" />
-                  </Link>
-                </NavLink>
-              </NavItem>
+                  <NavItem>
+                    <NavLink>
+                      <Link to={{ pathname: routes.signIn }}>
+                        <RenderButton title="Sign In" />
+                      </Link>
+                    </NavLink>
+                  </NavItem>
+                </>
+              )}
+              {authUser && (
+                <NavItem>
+                  <NavLink>
+                    <RenderButton
+                      title="Logout"
+                      onClick={() => {
+                        auth.logout();
+                        window.location = "/";
+                      }}
+                    />
+                  </NavLink>
+                </NavItem>
+              )}
             </Nav>
           ) : (
             <Nav navbar className={bem.e("nav-right")}>
