@@ -8,24 +8,24 @@ import {
   Fetch,
   Remove,
   selectAddStatus,
-  selectCategories,
+  selectUsers,
   selectDeleteStatus,
   selectEditStatus,
   selectFetchStatus
-} from "store/Categories";
+} from "store/Users";
 
-import Categorys from "./Categorys";
+import Users from "./Users";
 
 const Loader = ({
   fetchStatus,
   addStatus,
-  fetchCategorys,
-  addCategory,
+  fetchUsers,
+  addUser,
   editStatus,
-  editCategory,
+  editUser,
   deleteStatus,
-  deleteCategory,
-  categorys,
+  deleteUser,
+  users,
   categories,
   selectedRestaurant
 }) => {
@@ -36,18 +36,18 @@ const Loader = ({
   const [deleteLock, setDeleteLock] = useState(true);
 
   useEffect(() => {
-    setData(categorys);
-  }, [categorys, setData]);
+    setData(users);
+  }, [users, setData]);
 
   useEffect(() => {
     setFetchLock(false);
-    fetchCategorys();
-  }, [fetchCategorys, setFetchLock]);
+    fetchUsers();
+  }, [fetchUsers, setFetchLock]);
 
   useEffect(() => {
     const { status } = fetchStatus;
     if (status === reduxStatus.failure && !fetchLock) {
-      toast.error("Failed fetching Categorys");
+      toast.error("Failed fetching Users");
       setFetchLock(true);
     }
   }, [fetchStatus, setFetchLock, fetchLock]);
@@ -57,7 +57,7 @@ const Loader = ({
     if (status === reduxStatus.failure && !addLock) {
       setAddLock(true);
     } else if (status === reduxStatus.success && !addLock) {
-      toast.success("Added Category");
+      toast.success("Added User");
       setAddLock(true);
     }
   }, [addStatus, setAddLock, addLock]);
@@ -67,7 +67,7 @@ const Loader = ({
     if (status === reduxStatus.failure && !editLock) {
       setEditLock(true);
     } else if (status === reduxStatus.success && !editLock) {
-      toast.success("Edited Category");
+      toast.success("Edited User");
       setEditLock(true);
     }
   }, [editStatus, setEditLock, editLock]);
@@ -77,42 +77,42 @@ const Loader = ({
     if (status === reduxStatus.failure && !deleteLock) {
       setDeleteLock(true);
     } else if (status === reduxStatus.success && !deleteLock) {
-      toast.success("Deleted Category");
+      toast.success("Deleted User");
       setDeleteLock(true);
     }
   }, [deleteStatus, setDeleteLock, deleteLock]);
 
-  const _addCategory = data => {
+  const _addUser = data => {
     setAddLock(false);
     const formData = new FormData();
     for (var key in data) {
       formData.append(key, data[key]);
     }
-    addCategory(formData);
+    addUser(formData);
   };
 
-  const _editCategory = data => {
+  const _editUser = data => {
     setEditLock(false);
     const formData = new FormData();
     for (var key in data) {
       formData.append(key, data[key]);
     }
-    editCategory(formData);
+    editUser(formData);
   };
 
-  const _deleteCategory = id => {
+  const _deleteUser = id => {
     setDeleteLock(false);
-    deleteCategory(id);
+    deleteUser(id);
   };
   return (
-    <Categorys
+    <Users
       doneAdd={addStatus.status === reduxStatus.success && !addLock}
-      addCategory={_addCategory}
+      addUser={_addUser}
       doneEdit={editStatus.status === reduxStatus.success && !editLock}
-      editCategory={_editCategory}
+      editUser={_editUser}
       doneDelete={deleteStatus.status === reduxStatus.success && !deleteLock}
-      deleteCategory={_deleteCategory}
-      categorys={data}
+      deleteUser={_deleteUser}
+      users={data}
     />
   );
 };
@@ -123,14 +123,14 @@ const mapStateToProps = (state, ownProps) => ({
   addStatus: selectAddStatus(state),
   editStatus: selectEditStatus(state),
   deleteStatus: selectDeleteStatus(state),
-  categorys: selectCategories(state)
+  users: selectUsers(state)
 });
 
 const mapDispatchToProps = dispatch => ({
-  fetchCategorys: () => dispatch(Fetch()),
-  addCategory: data => dispatch(Add(data)),
-  editCategory: data => dispatch(Edit(data)),
-  deleteCategory: id => dispatch(Remove(id))
+  fetchUsers: () => dispatch(Fetch()),
+  addUser: data => dispatch(Add(data)),
+  editUser: data => dispatch(Edit(data)),
+  deleteUser: id => dispatch(Remove(id))
 });
 
 export default connect(

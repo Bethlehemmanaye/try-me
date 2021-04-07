@@ -15,6 +15,7 @@ import { withAuthentication } from "pages/Session";
 
 const HomePage = React.lazy(() => import("./pages/HomePage"));
 const Categories = React.lazy(() => import("./pages/Categories"));
+const Users = React.lazy(() => import("./pages/Users"));
 const Restaurants = React.lazy(() => import("./pages/Restaurants"));
 const RestaurantOwners = React.lazy(() => import("./pages/RestaurantOwners"));
 const Foods = React.lazy(() => import("./pages/Foods"));
@@ -72,6 +73,8 @@ function App() {
                   component={Restaurants}
                 />
                 <Route exact path={routes.categories} component={Categories} />
+                <Route exact path={routes.users} component={Users} />
+
                 <Route
                   exact
                   path={routes.restaurantOwners}

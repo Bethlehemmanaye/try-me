@@ -30,7 +30,7 @@ const Sections = [
   {
     label: "Users",
     icon: <MdRestaurant color="text-primary" size={80} />,
-    route: routes.restaurantOwners,
+    route: routes.users,
     admin: true,
     description:
       "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Doloremque quos reprehenderit ipsa suscipit nemo! Voluptatum a libero quaerat ipsa nulla in doloremque accusantium id eius, ea placeat perspiciatis fugiat praesentium."

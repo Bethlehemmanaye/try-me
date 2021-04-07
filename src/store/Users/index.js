@@ -1,7 +1,7 @@
 import StateArrayModel from "wrappers/StateModels/StateArrayModel";
 
 const User = new StateArrayModel({
-  stateName: "user"
+  stateName: "users"
 });
 User.setURL("/users");
 
