@@ -7,7 +7,7 @@ import {
   Popover,
   PopoverBody,
   ListGroup,
-  ListGroupItem,
+  ListGroupItem
 } from "reactstrap";
 import bn from "../../utils/bemnames";
 import routes from "../../config/routes";
@@ -20,10 +20,11 @@ import {
   MdPerson,
   MdPanoramaFishEye,
   MdQuestionAnswer,
-  MdPageview,
+  MdPageview
 } from "react-icons/md";
 import { Link } from "react-router-dom";
 import Logo from "../../assets/Logo/Logo_White.png";
+import AddRestaurant from "pages/AddRestaurant";
 
 const bem = bn.create("header");
 
@@ -33,7 +34,7 @@ class Header extends React.Component {
     this.state = {
       isMobile: false,
       isMobilePopoverOpen: false,
-      isAboutPopoverOpen: false,
+      isAboutPopoverOpen: false
     };
     this.updatePredicate = this.updatePredicate.bind(this);
   }
@@ -49,12 +50,12 @@ class Header extends React.Component {
   }
   toggleMobilePopover = () => {
     this.setState({
-      isMobilePopoverOpen: !this.state.isMobilePopoverOpen,
+      isMobilePopoverOpen: !this.state.isMobilePopoverOpen
     });
   };
   toggleAboutPopover = () => {
     this.setState({
-      isAboutPopoverOpen: !this.state.isAboutPopoverOpen,
+      isAboutPopoverOpen: !this.state.isAboutPopoverOpen
     });
   };
 
@@ -79,7 +80,7 @@ class Header extends React.Component {
 
           {isMobile && (
             <Nav navbar className="ml-2">
-              Restaurant Management System
+              Food Delivery System
             </Nav>
           )}
           {isMobile ? (
@@ -144,6 +145,7 @@ class Header extends React.Component {
                   />
                 </NavLink>
               </NavItem>
+              <AddRestaurant />
               <NavItem>
                 <NavLink>
                   <Link to={{ pathname: routes.signUp }}>
@@ -151,6 +153,7 @@ class Header extends React.Component {
                   </Link>
                 </NavLink>
               </NavItem>
+
               <NavItem>
                 <NavLink>
                   <Link to={{ pathname: routes.signIn }}>
