@@ -15,7 +15,7 @@ const Sections = [
     label: "Restaurant Owners List",
     icon: <MdRestaurant color="text-primary" size={80} />,
     route: routes.restaurantOwners,
-    admin: true,
+    isAdmin: true,
     description:
       "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Doloremque quos reprehenderit ipsa suscipit nemo! Voluptatum a libero quaerat ipsa nulla in doloremque accusantium id eius, ea placeat perspiciatis fugiat praesentium."
   },
@@ -23,7 +23,7 @@ const Sections = [
     label: "Cateogries",
     icon: <MdRestaurant color="text-primary" size={80} />,
     route: routes.categories,
-    admin: true,
+    isAdmin: true,
     description:
       "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Doloremque quos reprehenderit ipsa suscipit nemo! Voluptatum a libero quaerat ipsa nulla in doloremque accusantium id eius, ea placeat perspiciatis fugiat praesentium."
   },
@@ -31,7 +31,7 @@ const Sections = [
     label: "Users",
     icon: <MdRestaurant color="text-primary" size={80} />,
     route: routes.users,
-    admin: true,
+    isAdmin: true,
     description:
       "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Doloremque quos reprehenderit ipsa suscipit nemo! Voluptatum a libero quaerat ipsa nulla in doloremque accusantium id eius, ea placeat perspiciatis fugiat praesentium."
   },
@@ -39,7 +39,7 @@ const Sections = [
     label: "Restaurants",
     icon: <MdRestaurantMenu color="text-primary" size={80} />,
     route: routes.restaurants,
-    owner: true,
+    isRestaurantOwner: true,
     description:
       "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Doloremque quos reprehenderit ipsa suscipit nemo! Voluptatum a libero quaerat ipsa nulla in doloremque accusantium id eius, ea placeat perspiciatis fugiat praesentium."
   }
@@ -54,26 +54,54 @@ const HomePage = () => {
         <h3>Welcome To Restaurant Management System</h3>
       </CardHeader>
       <Row>
-        {Sections.map((section, index) => (
-          <Col index={index} md={4} sm={6} xs={12}>
-            <Link
-              to={{ pathname: section.route }}
-              style={{
-                textDecoration: "none"
-              }}
-            >
-              <Card className="card">
-                {section.icon}
-                <div>
-                  <CardHeader>{section.label}</CardHeader>
-                  <CardSubtitle className="mt-3 text-dark">
-                    {section.description}
-                  </CardSubtitle>
-                </div>
-              </Card>
-            </Link>
-          </Col>
-        ))}
+        {authUser &&
+          authUser.isAdmin &&
+          Sections.filter(section => section.isAdmin === true).map(
+            (section, index) => (
+              <Col index={index} md={4} sm={6} xs={12}>
+                <Link
+                  to={{ pathname: section.route }}
+                  style={{
+                    textDecoration: "none"
+                  }}
+                >
+                  <Card className="card">
+                    {section.icon}
+                    <div>
+                      <CardHeader>{section.label}</CardHeader>
+                      <CardSubtitle className="mt-3 text-dark">
+                        {section.description}
+                      </CardSubtitle>
+                    </div>
+                  </Card>
+                </Link>
+              </Col>
+            )
+          )}
+        {authUser &&
+          authUser.isRestaurantOwner &&
+          Sections.filter(section => section.isRestaurantOwner === true).map(
+            (section, index) => (
+              <Col index={index} md={4} sm={6} xs={12}>
+                <Link
+                  to={{ pathname: section.route }}
+                  style={{
+                    textDecoration: "none"
+                  }}
+                >
+                  <Card className="card">
+                    {section.icon}
+                    <div>
+                      <CardHeader>{section.label}</CardHeader>
+                      <CardSubtitle className="mt-3 text-dark">
+                        {section.description}
+                      </CardSubtitle>
+                    </div>
+                  </Card>
+                </Link>
+              </Col>
+            )
+          )}
       </Row>
     </div>
   );

@@ -1,3 +1,4 @@
+import jwtDecode from "jwt-decode";
 import { setJwt } from "store/middleware/api";
 
 const tokenKey = "token";
@@ -21,8 +22,9 @@ export function logout() {
 
 export function getCurrentUser() {
   try {
-    // const jwt = localStorage.getItem(tokenKey);
-    return JSON.parse(localStorage.getItem(userKey));
+    const jwt = localStorage.getItem(tokenKey);
+    // return JSON.parse(localStorage.getItem(userKey));
+    return jwtDecode(jwt);
   } catch (ex) {}
 }
 

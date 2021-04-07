@@ -1,5 +1,5 @@
 import { reduxStatus } from "constants/reduxStatus";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { connect } from "react-redux";
 import { toast } from "react-toastify";
 import {
@@ -14,6 +14,7 @@ import {
   selectFetchStatus
 } from "store/Restaurants";
 import RestaurantManagment from "./Restaurants";
+import { AuthUserContext } from "pages/Session";
 
 const Loader = ({
   fetchStatus,
@@ -31,6 +32,7 @@ const Loader = ({
   const [addLock, setAddLock] = useState(true);
   const [editLock, setEditLock] = useState(true);
   const [deleteLock, setDeleteLock] = useState(true);
+  const authUser = useContext(AuthUserContext);
 
   useEffect(() => {
     setData(restaurants);
@@ -101,7 +103,7 @@ const Loader = ({
       editRestaurant={_editRestaurant}
       doneDelete={deleteStatus.status === reduxStatus.success && !deleteLock}
       deleteRestaurant={_deleteRestaurant}
-      restaurants={data}
+      restaurants={data.filter(r => r.owner._id === authUser._id)}
     />
   );
 };
