@@ -14,6 +14,7 @@ class FoodsForm extends ParentForm {
         description: "",
         ingredients: "",
         delivery_expectancy: "",
+        price: "",
         categoryId: "",
         restaurantId: this.props.options.selectedRestaurant._id
       },
@@ -34,6 +35,7 @@ class FoodsForm extends ParentForm {
       description: Joi.string()
         .allow("")
         .optional(),
+      price: Joi.number(),
       ingredients: Joi.string(),
       delivery_expectancy: Joi.string()
         .allow("")
@@ -95,6 +97,13 @@ class FoodsForm extends ParentForm {
                 {this.renderInput({
                   name: "title",
                   label: "Title"
+                })}
+              </Col>
+              <Col md={4} sm={12} xs={12}>
+                {this.renderInput({
+                  name: "price",
+                  label: "Price",
+                  type: "number"
                 })}
               </Col>
               <Col md={4} sm={12} xs={12}>

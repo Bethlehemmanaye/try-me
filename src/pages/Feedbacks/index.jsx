@@ -103,7 +103,7 @@ const Loader = ({
       editFeedback={_editFeedback}
       doneDelete={deleteStatus.status === reduxStatus.success && !deleteLock}
       deleteFeedback={_deleteFeedback}
-      feedbacks={data}
+      feedbacks={data.filter(f => f.restaurant._id === selectedRestaurant._id)}
       options={{ selectedRestaurant, authUser: useContext(AuthUserContext) }}
     />
   );

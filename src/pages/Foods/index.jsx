@@ -113,7 +113,7 @@ const Loader = ({
       editFood={_editFood}
       doneDelete={deleteStatus.status === reduxStatus.success && !deleteLock}
       deleteFood={_deleteFood}
-      foods={data}
+      foods={data.filter(f => f.restaurant._id === selectedRestaurant._id)}
       options={{ categories, selectedRestaurant }}
     />
   );

@@ -15,6 +15,8 @@ import {
 } from "store/Restaurants";
 import AddRestaurant from "./AddRestaurant";
 import { AuthUserContext } from "pages/Session";
+import routes from "config/routes";
+import auth from "services/authService";
 
 const Loader = ({
   fetchStatus,
@@ -56,6 +58,8 @@ const Loader = ({
       setAddLock(true);
     } else if (status === reduxStatus.success && !addLock) {
       toast.success("Added Restaurant");
+      auth.logout();
+      window.location = routes.signIn;
       setAddLock(true);
     }
   }, [addStatus, setAddLock, addLock]);
@@ -82,12 +86,20 @@ const Loader = ({
 
   const _addRestaurant = data => {
     setAddLock(false);
-    addRestaurant(data);
+    const formData = new FormData();
+    for (var key in data) {
+      formData.append(key, data[key]);
+    }
+    addRestaurant(formData);
   };
 
   const _editRestaurant = data => {
     setEditLock(false);
-    editRestaurant(data);
+    const formData = new FormData();
+    for (var key in data) {
+      formData.append(key, data[key]);
+    }
+    editRestaurant(formData);
   };
 
   const _deleteRestaurant = id => {

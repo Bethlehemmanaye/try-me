@@ -31,7 +31,8 @@ const Loader = ({
   deleteOrder,
   orders,
   foods,
-  categories
+  categories,
+  selectedRestaurant
 }) => {
   const [data, setData] = useState([]);
   const [fetchLock, setFetchLock] = useState(true);
@@ -68,7 +69,7 @@ const Loader = ({
 
   useEffect(() => {
     const { status, response } = editStatus;
-    console.log(response,"response")
+    console.log(response, "response");
     if (status === reduxStatus.failure && !editLock) {
       setEditLock(true);
     } else if (status === reduxStatus.success && !editLock) {
@@ -109,7 +110,7 @@ const Loader = ({
       editOrder={_editOrder}
       doneDelete={deleteStatus.status === reduxStatus.success && !deleteLock}
       deleteOrder={_deleteOrder}
-      orders={data}
+      orders={data.filter(o => o.restaurant._id === selectedRestaurant._id)}
       options={{ foods, authUser: useContext(AuthUserContext), categories }}
     />
   );

@@ -11,6 +11,7 @@ class UserAdd extends ParentForm {
         title: "",
         location: "",
         description: "",
+        image: "",
         contact_phone_number: "",
         user_id: this.props.options.authUser._id
       },
