@@ -9,5 +9,6 @@ export default {
   customers: "/customers",
   users: "/users",
   orders: "/orders",
-  singleRestaurants: "/singleRestaurants/:id"
+  singleRestaurants: "/singleRestaurants/:id",
+  categories: "/categories"
 };

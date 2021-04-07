@@ -14,6 +14,7 @@ import { ToastContainer, Zoom } from "react-toastify";
 import { withAuthentication } from "pages/Session";
 
 const HomePage = React.lazy(() => import("./pages/HomePage"));
+const Categories = React.lazy(() => import("./pages/Categories"));
 const Restaurants = React.lazy(() => import("./pages/Restaurants"));
 const RestaurantOwners = React.lazy(() => import("./pages/RestaurantOwners"));
 const Foods = React.lazy(() => import("./pages/Foods"));
@@ -70,6 +71,7 @@ function App() {
                   path={routes.restaurants}
                   component={Restaurants}
                 />
+                <Route exact path={routes.categories} component={Categories} />
                 <Route
                   exact
                   path={routes.restaurantOwners}

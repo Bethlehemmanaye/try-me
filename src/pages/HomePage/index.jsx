@@ -1,46 +1,53 @@
-import React from "react";
+import React, { useContext } from "react";
 import {
   MdGetApp,
   MdPeople,
   MdRestaurant,
-  MdRestaurantMenu,
+  MdRestaurantMenu
 } from "react-icons/md";
 import { Link } from "react-router-dom";
 import { Card, CardHeader, CardSubtitle, Col, Row } from "reactstrap";
 import routes from "../../config/routes";
+import { AuthUserContext } from "pages/Session";
 
 const Sections = [
   {
     label: "Restaurant Owners List",
     icon: <MdRestaurant color="text-primary" size={80} />,
     route: routes.restaurantOwners,
+    admin: true,
     description:
-      "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Doloremque quos reprehenderit ipsa suscipit nemo! Voluptatum a libero quaerat ipsa nulla in doloremque accusantium id eius, ea placeat perspiciatis fugiat praesentium.",
+      "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Doloremque quos reprehenderit ipsa suscipit nemo! Voluptatum a libero quaerat ipsa nulla in doloremque accusantium id eius, ea placeat perspiciatis fugiat praesentium."
   },
   {
-    label: "Customers",
-    icon: <MdPeople color="text-primary" size={80} />,
-    route: routes.customers,
+    label: "Cateogries",
+    icon: <MdRestaurant color="text-primary" size={80} />,
+    route: routes.categories,
+    admin: true,
     description:
-      "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Doloremque quos reprehenderit ipsa suscipit nemo! Voluptatum a libero quaerat ipsa nulla in doloremque accusantium id eius, ea placeat perspiciatis fugiat praesentium.",
+      "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Doloremque quos reprehenderit ipsa suscipit nemo! Voluptatum a libero quaerat ipsa nulla in doloremque accusantium id eius, ea placeat perspiciatis fugiat praesentium."
+  },
+  {
+    label: "Users",
+    icon: <MdRestaurant color="text-primary" size={80} />,
+    route: routes.restaurantOwners,
+    admin: true,
+    description:
+      "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Doloremque quos reprehenderit ipsa suscipit nemo! Voluptatum a libero quaerat ipsa nulla in doloremque accusantium id eius, ea placeat perspiciatis fugiat praesentium."
   },
   {
     label: "Restaurants",
     icon: <MdRestaurantMenu color="text-primary" size={80} />,
     route: routes.restaurants,
+    owner: true,
     description:
-      "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Doloremque quos reprehenderit ipsa suscipit nemo! Voluptatum a libero quaerat ipsa nulla in doloremque accusantium id eius, ea placeat perspiciatis fugiat praesentium.",
-  },
-  {
-    label: "Foods",
-    icon: <MdGetApp color="text-primary" size={80} />,
-    route: routes.foods,
-    description:
-      "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Doloremque quos reprehenderit ipsa suscipit nemo! Voluptatum a libero quaerat ipsa nulla in doloremque accusantium id eius, ea placeat perspiciatis fugiat praesentium.",
-  },
+      "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Doloremque quos reprehenderit ipsa suscipit nemo! Voluptatum a libero quaerat ipsa nulla in doloremque accusantium id eius, ea placeat perspiciatis fugiat praesentium."
+  }
 ];
 
 const HomePage = () => {
+  const authUser = useContext(AuthUserContext);
+
   return (
     <div className="homePageContainer">
       <CardHeader className="header">
@@ -52,7 +59,7 @@ const HomePage = () => {
             <Link
               to={{ pathname: section.route }}
               style={{
-                textDecoration: "none",
+                textDecoration: "none"
               }}
             >
               <Card className="card">
